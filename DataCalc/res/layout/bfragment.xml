@@ -4,126 +4,201 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <!-- <ScrollView
+    <!--
+         <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" > -->
+        android:layout_height="wrap_content" >
+    -->
 
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
-
-                <TextView
-                    android:id="@+id/email"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Emails Sent without Attachments"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                <Spinner
-                    android:id="@+id/emailMonth"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:entries="@array/monthDayWeek" />
-
-                <requestFocus />
-        </TableRow>
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
 
         <EditText
             android:id="@+id/emailNum"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="number" >
+            android:inputType="number"
+            android:width="60sp" >
         </EditText>
 
-        <TableRow
+        <TextView
+            android:id="@+id/email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:text="@string/emailNoAttach"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
-                android:id="@+id/emailAttach"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Emails Sent without Attachments"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+        <Spinner
+            android:id="@+id/emailMonth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/monthDayWeek" />
 
-            <Spinner
-                android:id="@+id/emailAttachMonth"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:entries="@array/monthDayWeek" />
+        <requestFocus />
+    </TableRow>
 
-            <requestFocus />
-        </TableRow>
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
 
         <EditText
             android:id="@+id/emailAttachNum"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="number" >
+            android:inputType="number"
+            android:width="60sp" >
         </EditText>
 
-        <TableRow
+        <TextView
+            android:id="@+id/emailAttach"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:text="Emails Sent without Attachments"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
-                android:id="@+id/music"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Minutes of Music Streamed"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+        <Spinner
+            android:id="@+id/emailAttachMonth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/monthDayWeek" />
 
-            <Spinner
-                android:id="@+id/musicMonth"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:entries="@array/monthDayWeek" />
+        <requestFocus />
+    </TableRow>
 
-            <requestFocus />
-        </TableRow>
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
 
         <EditText
             android:id="@+id/musicNum"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="number" >
+            android:inputType="number"
+            android:width="60sp" >
         </EditText>
-
-        <TableRow
+        
+        <Spinner
+            android:id="@+id/musicMinHour"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:entries="@array/minHour" />
 
-            <TextView
-                android:id="@+id/web"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Minutes of Music Streamed"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+        <TextView
+            android:id="@+id/music"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="of Music Streamed"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <Spinner
-                android:id="@+id/webMonth"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:entries="@array/monthDayWeek" />
+        <Spinner
+            android:id="@+id/musicMonth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/monthDayWeek" />
+    </TableRow>
 
-            <requestFocus />
-        </TableRow>
+    <requestFocus />
+
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
 
         <EditText
             android:id="@+id/webNum"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:width="60sp"
             android:inputType="number" >
         </EditText>
+
+        <TextView
+            android:id="@+id/web"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hours of Surfing the Web"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <Spinner
+            android:id="@+id/webMonth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/monthDayWeek" />
+    </TableRow>
+    
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <EditText
+            android:id="@+id/photoNum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:width="60sp"
+            android:inputType="number" >
+        </EditText>
+
+        <TextView
+            android:id="@+id/photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Photos Posted to Social Media"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <Spinner
+            android:id="@+id/photoMonth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/monthDayWeek" />
+    </TableRow>
+    
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <EditText
+            android:id="@+id/vidNum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:width="60sp"
+            android:inputType="number" >
+        </EditText>
+        
+        <Spinner
+            android:id="@+id/vidMinHour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/minHour" />
+
+        <TextView
+            android:id="@+id/vid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="of streaming video"
+            android:textAppearance="?android:attr/textAppearanceSmall" />  
+
+        <Spinner
+            android:id="@+id/vidMonth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/monthDayWeek" />
+    </TableRow>
+
+    <requestFocus />
+
     <!-- </ScrollView> -->
 
 </LinearLayout>

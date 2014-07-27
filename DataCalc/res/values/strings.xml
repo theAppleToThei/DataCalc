@@ -11,11 +11,22 @@
     <string name="hotspot">Mobile Hotspot</string>
     <string name="selectDeviceText">Select Your Device Below:</string>
     <string name="dataEstimate">0.0 GB</string>
+    <string name="emailNoAttach">Emails Sent without Attachments</string>
     
     <string-array name="monthDayWeek">
-        <item >a month</item>
         <item >a day</item>
         <item >a week</item>
+        <item >a month</item>
+    </string-array>
+    
+    <string-array name="minHour">
+        <item >minutes</item>
+        <item >hours</item>
+    </string-array>
+    
+    <string-array name="quality">
+        <item >SD</item>
+        <item >HD</item>
     </string-array>
 
 </resources>
