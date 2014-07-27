@@ -22,11 +22,13 @@ public class StartActivity extends Activity
 	RadioButton smartphone;
 	RadioButton tablet;
 	RadioButton laptop;
+	RadioButton hotspot;
 
 	private String device;
 	public static final String SMARTPHONE = "smartphone";
 	public static final String TABLET = "tablet";
 	public static final String LAPTOP = "laptop";
+	public static final String HOTSPOT = "hotspot";
 
 	/** Called when the activity is first created. */
 	@Override
@@ -42,19 +44,24 @@ public class StartActivity extends Activity
 
 		ActionBar.Tab PlayerTab = actionbar.newTab().setText("Devices");
 		ActionBar.Tab StationsTab = actionbar.newTab().setText("Variables");
+		ActionBar.Tab ResultsTab = actionbar.newTab().setText("Estimate");
 
 		Fragment PlayerFragment = new AFragment();
 		Fragment StationsFragment = new BFragment();
+		Fragment ResultsFragment = new CFragment();
 
 		PlayerTab.setTabListener(new MyTabsListener(PlayerFragment));
 		StationsTab.setTabListener(new MyTabsListener(StationsFragment));
+		ResultsTab.setTabListener(new MyTabsListener(ResultsFragment));
 
 		actionbar.addTab(PlayerTab);
 		actionbar.addTab(StationsTab);
+		actionbar.addTab(ResultsTab);
 
 		smartphone = (RadioButton) findViewById(R.id.smartphone);
 		tablet = (RadioButton) findViewById(R.id.tablet);
 		laptop = (RadioButton) findViewById(R.id.laptop);
+		hotspot = (RadioButton) findViewById(R.id.hotspot);
 
 		setTitle("Data Calc");
 	}
@@ -94,6 +101,9 @@ public class StartActivity extends Activity
 		} else if (v.equals(laptop))
 		{
 			device = LAPTOP;
+		} else if (v.equals(hotspot))
+		{
+			device = HOTSPOT;
 		}
 	}
 
@@ -108,6 +118,9 @@ public class StartActivity extends Activity
 		} else if (d == LAPTOP)
 		{
 			return 35;
+		} else if (d == HOTSPOT)
+		{
+			return 20;
 		} else {
 			return (Integer) null;
 		}

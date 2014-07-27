@@ -36,6 +36,13 @@
             android:layout_height="wrap_content"
             android:onClick="onRadioButtonClicked"
             android:text="@string/laptop" />
+        
+        <RadioButton
+            android:id="@+id/hotspot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/hotspot" />
     </RadioGroup>
 
     <requestFocus />

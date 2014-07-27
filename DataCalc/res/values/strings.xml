@@ -8,7 +8,10 @@
     <string name="smartphone">Smartphone</string>
     <string name="tablet">Tablet</string>
     <string name="laptop">Laptop</string>
+    <string name="hotspot">Mobile Hotspot</string>
     <string name="selectDeviceText">Select Your Device Below:</string>
+    <string name="dataEstimate">0.0 GB</string>
+    
     <string-array name="monthDayWeek">
         <item >a month</item>
         <item >a day</item>
