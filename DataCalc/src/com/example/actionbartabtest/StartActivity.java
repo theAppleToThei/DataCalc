@@ -1,5 +1,7 @@
 package com.example.actionbartabtest;
 
+import org.w3c.dom.Text;
+
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.Activity;
@@ -13,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class StartActivity extends Activity
@@ -29,6 +32,10 @@ public class StartActivity extends Activity
 	public static final String TABLET = "tablet";
 	public static final String LAPTOP = "laptop";
 	public static final String HOTSPOT = "hotspot";
+	
+	TextView emails;
+	TextView emailsAttach;
+	TextView estimate;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -38,6 +45,10 @@ public class StartActivity extends Activity
 		setContentView(R.layout.main);
 		appContext = getApplicationContext();
 
+		emails = (TextView) findViewById(R.id.emailNum);
+		emailsAttach = (TextView) findViewById(R.id.emailAttachNum);
+		estimate = (TextView) findViewById(R.id.dataEstimate);
+		
 		// ActionBar
 		ActionBar actionbar = getActionBar();
 		actionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -121,19 +132,29 @@ public class StartActivity extends Activity
 		} else if (d == HOTSPOT)
 		{
 			return 20;
-		} else {
+		} else
+		{
 			return (Integer) null;
 		}
 	}
-	
-	public int getEmailSizeAttachment(String d)
+
+	public int getEmailSizeAttachment()
 	{
 		return 300;
 	}
-	
-	public int getMinuteMusicStream(String d)
+
+	public int getMinuteMusicStream()
 	{
 		return 500;
+	}
+	
+	public void calculateTotal()
+	{
+		int emailInt = Integer.parseInt(String.valueOf(emails));
+		int kiloTotal = getEmailSize(device) * emailInt;
+		kiloTotal = kiloTotal * 10^-6;
+		int total = kiloTotal;
+		estimate.setText(String.valueOf(total) + " GB");
 	}
 }
 
@@ -164,5 +185,6 @@ class MyTabsListener implements ActionBar.TabListener
 	{
 		ft.remove(fragment);
 	}
+
 
 }
