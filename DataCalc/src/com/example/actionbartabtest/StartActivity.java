@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +27,10 @@ public class StartActivity extends Activity
 	RadioButton tablet;
 	RadioButton laptop;
 	RadioButton hotspot;
+	
+	final int DAY = 30;
+	final int WEEK = 5;
+	final int MONTH = 1;
 
 	private String device;
 	public static final String SMARTPHONE = "smartphone";
@@ -33,7 +38,7 @@ public class StartActivity extends Activity
 	public static final String LAPTOP = "laptop";
 	public static final String HOTSPOT = "hotspot";
 	
-	TextView emails;
+	EditText emails;
 	TextView emailsAttach;
 	TextView estimate;
 
@@ -45,7 +50,7 @@ public class StartActivity extends Activity
 		setContentView(R.layout.main);
 		appContext = getApplicationContext();
 
-		emails = (TextView) findViewById(R.id.emailNum);
+		emails = (EditText) findViewById(R.id.emailNum);
 		emailsAttach = (TextView) findViewById(R.id.emailAttachNum);
 		estimate = (TextView) findViewById(R.id.dataEstimate);
 		
