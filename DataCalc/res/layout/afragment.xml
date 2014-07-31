@@ -20,8 +20,8 @@
             android:id="@+id/smartphone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked"
             android:checked="true"
+            android:onClick="onRadioButtonClicked"
             android:text="@string/smartphone" />
 
         <RadioButton
@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:onClick="onRadioButtonClicked"
             android:text="@string/laptop" />
-        
+
         <RadioButton
             android:id="@+id/hotspot"
             android:layout_width="wrap_content"
@@ -47,5 +47,27 @@
     </RadioGroup>
 
     <requestFocus />
+
+ <!-- <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+    <CheckBox
+        android:id="@+id/checkBox1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="" />
+    
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Calculate Cost"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+    
+    </TableRow> -->
+
+ 
 
 </LinearLayout>

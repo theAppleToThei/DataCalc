@@ -1,6 +1,8 @@
-package com.example.actionbartabtest;
+package com.techtalk4geeks.datacalc;
 
 import org.w3c.dom.Text;
+
+import com.example.actionbartabtest.R;
 
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
@@ -155,10 +157,10 @@ public class StartActivity extends Activity
 	
 	public void calculateTotal()
 	{
-		int emailInt = Integer.parseInt(String.valueOf(emails));
-		int kiloTotal = getEmailSize(device) * emailInt;
-		kiloTotal = kiloTotal * 10^-6;
-		int total = kiloTotal;
+		int emailInt = Integer.parseInt(String.valueOf(emails.getText()));
+		double kiloTotal = (int) (getEmailSize(device) * emailInt);
+		kiloTotal = Math.pow(kiloTotal, -6);
+		double total = kiloTotal;
 		estimate.setText(String.valueOf(total) + " GB");
 	}
 }
