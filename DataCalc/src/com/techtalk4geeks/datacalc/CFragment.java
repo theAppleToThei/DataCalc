@@ -1,7 +1,5 @@
 package com.techtalk4geeks.datacalc;
 
-import com.example.actionbartabtest.R;
-
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;

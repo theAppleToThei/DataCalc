@@ -2,14 +2,13 @@ package com.techtalk4geeks.datacalc;
 
 import org.w3c.dom.Text;
 
-import com.example.actionbartabtest.R;
-
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -41,7 +40,7 @@ public class StartActivity extends Activity
 	public static final String HOTSPOT = "hotspot";
 	
 	EditText emails;
-	TextView emailsAttach;
+	EditText emailsAttach;
 	TextView estimate;
 
 	/** Called when the activity is first created. */
@@ -53,27 +52,27 @@ public class StartActivity extends Activity
 		appContext = getApplicationContext();
 
 		emails = (EditText) findViewById(R.id.emailNum);
-		emailsAttach = (TextView) findViewById(R.id.emailAttachNum);
+		emailsAttach = (EditText) findViewById(R.id.emailAttachNum);
 		estimate = (TextView) findViewById(R.id.dataEstimate);
 		
 		// ActionBar
 		ActionBar actionbar = getActionBar();
 		actionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
-		ActionBar.Tab PlayerTab = actionbar.newTab().setText("Devices");
-		ActionBar.Tab StationsTab = actionbar.newTab().setText("Variables");
+		ActionBar.Tab DevicesTab = actionbar.newTab().setText("Devices");
+		ActionBar.Tab VariablesTab = actionbar.newTab().setText("Variables");
 		ActionBar.Tab ResultsTab = actionbar.newTab().setText("Estimate");
 
 		Fragment PlayerFragment = new AFragment();
 		Fragment StationsFragment = new BFragment();
 		Fragment ResultsFragment = new CFragment();
 
-		PlayerTab.setTabListener(new MyTabsListener(PlayerFragment));
-		StationsTab.setTabListener(new MyTabsListener(StationsFragment));
+		DevicesTab.setTabListener(new MyTabsListener(PlayerFragment));
+		VariablesTab.setTabListener(new MyTabsListener(StationsFragment));
 		ResultsTab.setTabListener(new MyTabsListener(ResultsFragment));
 
-		actionbar.addTab(PlayerTab);
-		actionbar.addTab(StationsTab);
+		actionbar.addTab(DevicesTab);
+		actionbar.addTab(VariablesTab);
 		actionbar.addTab(ResultsTab);
 
 		smartphone = (RadioButton) findViewById(R.id.smartphone);
@@ -95,10 +94,14 @@ public class StartActivity extends Activity
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
-		switch (item.getItemId())
+		int id = item.getItemId();
+		if (id == R.id.youtube_calc)
 		{
+			Intent youtubeCalc = new Intent(this, YouTubeActivity.class);
+			startActivity(youtubeCalc);
+			return true;
 		}
-		return false;
+		return super.onOptionsItemSelected(item);
 	}
 
 	@Override
@@ -157,7 +160,11 @@ public class StartActivity extends Activity
 	
 	public void calculateTotal()
 	{
-		int emailInt = Integer.parseInt(String.valueOf(emails.getText()));
+		int emailInt;
+//		if (emails.getText().toString() == null || emails.getText().toString().isEmpty()) {
+//			emailInt = 0;
+//		}
+		emailInt = Integer.parseInt(String.valueOf(emails.getText()));
 		double kiloTotal = (int) (getEmailSize(device) * emailInt);
 		kiloTotal = Math.pow(kiloTotal, -6);
 		double total = kiloTotal;

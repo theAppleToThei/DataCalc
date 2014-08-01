@@ -4,7 +4,6 @@
     <string name="app_name">Data Calc</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    
     <string name="smartphone">Smartphone</string>
     <string name="tablet">Tablet</string>
     <string name="laptop">Laptop</string>
@@ -13,20 +12,24 @@
     <string name="dataEstimate">0.0 GB</string>
     <string name="emailNoAttach">Emails Sent without Attachments</string>
     
+    <string name="youtubedatacalc">YouTube Data Calculator</string>
+    <string name="enterURL">Enter a YouTube URL</string>
+    <string name="URLHint">e.g. http://youtu.be/3UOLj1-q67</string>
+    
     <string-array name="monthDayWeek">
-        <item >a day</item>
-        <item >a week</item>
-        <item >a month</item>
+        <item>a day</item>
+        <item>a week</item>
+        <item>a month</item>
     </string-array>
-    
     <string-array name="minHour">
-        <item >minutes</item>
-        <item >hours</item>
+        <item>minutes</item>
+        <item>hours</item>
     </string-array>
-    
     <string-array name="quality">
-        <item >SD</item>
-        <item >HD</item>
+        <item>SD</item>
+        <item>HD</item>
     </string-array>
+
+    <string name="title_activity_you_tube">YouTubeActivity</string>
 
 </resources>
