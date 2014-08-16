@@ -84,7 +84,7 @@
             android:inputType="number"
             android:width="60sp" >
         </EditText>
-        
+
         <Spinner
             android:id="@+id/musicMinHour"
             android:layout_width="wrap_content"
@@ -117,8 +117,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:width="60sp"
-            android:inputType="number" >
+            android:inputType="number"
+            android:width="60sp" >
         </EditText>
 
         <TextView
@@ -134,7 +134,7 @@
             android:layout_height="wrap_content"
             android:entries="@array/monthDayWeek" />
     </TableRow>
-    
+
     <TableRow
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -145,8 +145,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:width="60sp"
-            android:inputType="number" >
+            android:inputType="number"
+            android:width="60sp" >
         </EditText>
 
         <TextView
@@ -162,7 +162,7 @@
             android:layout_height="wrap_content"
             android:entries="@array/monthDayWeek" />
     </TableRow>
-    
+
     <TableRow
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -173,10 +173,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:width="60sp"
-            android:inputType="number" >
+            android:inputType="number"
+            android:width="60sp" >
         </EditText>
-        
+
         <Spinner
             android:id="@+id/vidMinHour"
             android:layout_width="wrap_content"
@@ -188,7 +188,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="of streaming video"
-            android:textAppearance="?android:attr/textAppearanceSmall" />  
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <Spinner
             android:id="@+id/vidMonth"
@@ -196,6 +196,15 @@
             android:layout_height="wrap_content"
             android:entries="@array/monthDayWeek" />
     </TableRow>
+
+    <ImageButton
+        android:id="@+id/calcButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:contentDescription="Calculate"
+        android:onClick="calculate"
+        android:src="@drawable/calculate" />
 
     <requestFocus />
 

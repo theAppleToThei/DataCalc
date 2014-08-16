@@ -3,6 +3,10 @@ package com.techtalk4geeks.datacalc;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaMetadataRetriever;
 import android.os.Bundle;
@@ -16,11 +20,13 @@ import android.os.Build;
 public class YouTubeActivity extends ActionBarActivity
 {
 
+	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setTitle("YouTube Calculator");
+		getActionBar().setIcon(R.drawable.youtube_calc_image);
 		setContentView(R.layout.activity_you_tube);
 
 		if (savedInstanceState == null)
@@ -30,10 +36,12 @@ public class YouTubeActivity extends ActionBarActivity
 		}
 	}
 
-	public long getVidTime(String URL) {
+	public long getVidTime(String URL)
+	{
 		MediaMetadataRetriever retriever = new MediaMetadataRetriever();
 		retriever.setDataSource(URL);
-		String time = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
+		String time = retriever
+				.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
 		long timeInmillisec = Long.parseLong(time);
 		long duration = timeInmillisec;
 		long hours = duration / 3600;
@@ -54,18 +62,37 @@ public class YouTubeActivity extends ActionBarActivity
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.data)
 		{
 			Intent dataCalc = new Intent(this, StartActivity.class);
-			setTitle("Data Calc");
 			startActivity(dataCalc);
 			return true;
 		}
+		if (id == R.id.help_button)
+		{
+			createYouTubeHelpDialog();
+			return true;
+		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	public Dialog createYouTubeHelpDialog() {
+	    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+	    // Set the dialog title
+	    builder.setTitle(R.string.help);
+	    // Specify the list array, the items to be selected by default (null for none),
+	    // and the listener through which to receive callbacks when items are selected
+	    builder.setMessage("When you're data conscious and need to use it sparingly, use the YouTube Calc. It allows you to paste a link to any YouTube video and get an estimate of how much data you'll use over cellular data.");   
+	    // Set the action buttons
+	           builder.setNeutralButton(R.string.close, new DialogInterface.OnClickListener() {
+	               @Override
+	               public void onClick(DialogInterface dialog, int id) {
+	                   
+	               }
+	           });
+
+	    return builder.create();
 	}
 
 	/**

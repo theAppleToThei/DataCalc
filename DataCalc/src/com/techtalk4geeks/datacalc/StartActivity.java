@@ -28,7 +28,7 @@ public class StartActivity extends Activity
 	RadioButton tablet;
 	RadioButton laptop;
 	RadioButton hotspot;
-	
+
 	final int DAY = 30;
 	final int WEEK = 5;
 	final int MONTH = 1;
@@ -38,7 +38,7 @@ public class StartActivity extends Activity
 	public static final String TABLET = "tablet";
 	public static final String LAPTOP = "laptop";
 	public static final String HOTSPOT = "hotspot";
-	
+
 	EditText emails;
 	EditText emailsAttach;
 	TextView estimate;
@@ -48,13 +48,14 @@ public class StartActivity extends Activity
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		setTitle("Data Calc");
 		setContentView(R.layout.main);
 		appContext = getApplicationContext();
 
 		emails = (EditText) findViewById(R.id.emailNum);
 		emailsAttach = (EditText) findViewById(R.id.emailAttachNum);
 		estimate = (TextView) findViewById(R.id.dataEstimate);
-		
+
 		// ActionBar
 		ActionBar actionbar = getActionBar();
 		actionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -73,7 +74,7 @@ public class StartActivity extends Activity
 
 		actionbar.addTab(DevicesTab);
 		actionbar.addTab(VariablesTab);
-		actionbar.addTab(ResultsTab);
+		// actionbar.addTab(ResultsTab);
 
 		smartphone = (RadioButton) findViewById(R.id.smartphone);
 		tablet = (RadioButton) findViewById(R.id.tablet);
@@ -157,18 +158,24 @@ public class StartActivity extends Activity
 	{
 		return 500;
 	}
-	
+
 	public void calculateTotal()
 	{
 		int emailInt;
-//		if (emails.getText().toString() == null || emails.getText().toString().isEmpty()) {
-//			emailInt = 0;
-//		}
-		emailInt = Integer.parseInt(String.valueOf(emails.getText()));
-		double kiloTotal = (int) (getEmailSize(device) * emailInt);
-		kiloTotal = Math.pow(kiloTotal, -6);
-		double total = kiloTotal;
-		estimate.setText(String.valueOf(total) + " GB");
+		// if (emails.getText().toString() == null ||
+		// emails.getText().toString().isEmpty()) {
+		// emailInt = 0;
+		// }
+		// emailInt = Integer.parseInt(String.valueOf(getEmails().getText()));
+		// double kiloTotal = (int) (getEmailSize(device) * emailInt);
+		// kiloTotal = Math.pow(kiloTotal, -6);
+		// double total = kiloTotal;
+		// estimate.setText(String.valueOf(total) + " GB");
+	}
+
+	public void calculateStart(View v) {
+		BFragment b = new BFragment();
+		b.calculateB(v);
 	}
 }
 
@@ -199,6 +206,5 @@ class MyTabsListener implements ActionBar.TabListener
 	{
 		ft.remove(fragment);
 	}
-
 
 }
