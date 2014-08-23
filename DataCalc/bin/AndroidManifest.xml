@@ -35,6 +35,10 @@
             android:name="com.techtalk4geeks.datacalc.About"
             android:label="@string/title_activity_about" >
         </activity>
+        <activity
+            android:name="com.techtalk4geeks.datacalc.CalcActivity"
+            android:label="@string/title_activity_calc" >
+        </activity>
     </application>
 
 </manifest>

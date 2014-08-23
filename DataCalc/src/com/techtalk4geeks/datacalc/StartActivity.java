@@ -35,7 +35,7 @@ public class StartActivity extends Activity
 	final int MONTH = 1;
 
 	private String device;
-	double total;
+	public double total;
 	public static final String SMARTPHONE = "smartphone";
 	public static final String TABLET = "tablet";
 	public static final String LAPTOP = "laptop";
@@ -172,7 +172,11 @@ public class StartActivity extends Activity
 	public void calculateStart() {
 		device = mAFragment.calculateA();
 		total = mBFragment.calculateB(device);
-		estimate.setText(String.valueOf(total) + " GB");
+		Intent calc = new Intent(this, CalcActivity.class);
+		calc.putExtra("device", device);
+		calc.putExtra("total", total);
+		startActivity(calc);
+//		estimate.setText(String.valueOf(total) + " GB");
 	}
 
 }
