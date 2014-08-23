@@ -1,5 +1,7 @@
 package com.techtalk4geeks.datacalc;
 
+import java.text.DecimalFormat;
+
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -23,8 +25,10 @@ public class CalcActivity extends ActionBarActivity
 		i.getExtras();
 		double myTotal = i.getDoubleExtra("total", 0);
 		setContentView(R.layout.activity_calc);
+		setTitle("Data Calc");
 		TextView estimate = (TextView) findViewById(R.id.dataEstimate);
-		estimate.setText(String.valueOf(myTotal) + " GB");
+		DecimalFormat df = new DecimalFormat("#.##");
+		estimate.setText((df.format(myTotal)) + " GB");
 
 		if (savedInstanceState == null)
 		{

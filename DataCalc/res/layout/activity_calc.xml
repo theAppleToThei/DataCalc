@@ -1,4 +1,4 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
@@ -6,26 +6,44 @@
     tools:context="com.techtalk4geeks.datacalc.CalcActivity"
     tools:ignore="MergeRootFrame" >
 
-    <TextView
-        android:id="@+id/textView1"
+    <TableRow
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="100sp"
-        android:text="Your Data Estimate" />
+        android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/dataEstimate"
+        <TextView
+            android:id="@+id/yourDataEstimate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="25sp"
+            android:text="Your Data Estimate" />
+    </TableRow>
+
+    <TableRow
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="100sp"
-        android:text="@string/dataEstimate"
-        android:textSize="40sp" />
+        android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/textView1"
+        <TextView
+            android:id="@+id/dataEstimate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dataEstimate"
+            android:textSize="40sp" />
+    </TableRow>
+
+    <TableRow
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="150sp"
-        android:text="per month" />
+        android:orientation="vertical" >
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="150sp"
+            android:textSize="25sp"
+            android:text="per month" />
+    </TableRow>
+
+</TableLayout>

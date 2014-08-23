@@ -8,11 +8,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 
 public class BFragment extends Fragment
 {
 	StartActivity start = new StartActivity();
 	public EditText emails;
+	Spinner emailDate;
 	EditText emailsAttach;
 	Button calcButton;
 
@@ -63,7 +65,7 @@ public class BFragment extends Fragment
 		}
 		double kiloTotal = (int) (getEmailSize(device) * emailInt);
 		kiloTotal += (int) (getEmailSizeAttachment() * emailAttachInt);
-		kiloTotal = Math.pow(kiloTotal, -6);
+		kiloTotal = kiloTotal / 1000000000;
 		double total = kiloTotal;
 		return total;
 	}
