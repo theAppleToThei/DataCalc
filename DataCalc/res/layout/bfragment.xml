@@ -197,14 +197,14 @@
             android:entries="@array/monthDayWeek" />
     </TableRow>
 
-    <ImageButton
+    <!-- <ImageButton
         android:id="@+id/calcButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:contentDescription="Calculate"
         android:onClick="calculate"
-        android:src="@drawable/calculate" />
+        android:src="@drawable/calculate" /> -->
 
     <requestFocus />
 

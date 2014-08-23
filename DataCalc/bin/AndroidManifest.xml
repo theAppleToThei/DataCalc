@@ -27,6 +27,14 @@
             android:name="com.techtalk4geeks.datacalc.YouTubeActivity"
             android:label="@string/title_activity_you_tube" >
         </activity>
+        <activity
+            android:name="com.techtalk4geeks.datacalc.DrawerActivity"
+            android:label="@string/title_activity_drawer" >
+        </activity>
+        <activity
+            android:name="com.techtalk4geeks.datacalc.About"
+            android:label="@string/title_activity_about" >
+        </activity>
     </application>
 
 </manifest>

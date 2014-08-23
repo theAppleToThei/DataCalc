@@ -2,10 +2,24 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
+        android:id="@+id/calc_button"
+        android:icon="@drawable/calculate"
+        android:showAsAction="always"
+        android:title="Estimate">
+    </item>
+    
+    <item
         android:id="@+id/youtube_calc"
         android:icon="@drawable/youtube_calc_image"
-        android:showAsAction="always"
+        android:showAsAction="never"
         android:title="@string/youtubedatacalc">
+    </item>
+    
+    <item
+        android:id="@+id/about"
+        android:icon="@drawable/about"
+        android:showAsAction="never"
+        android:title="About">
     </item>
     
 </menu>

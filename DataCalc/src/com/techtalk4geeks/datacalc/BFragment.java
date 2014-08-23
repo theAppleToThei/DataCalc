@@ -16,6 +16,12 @@ public class BFragment extends Fragment
 	EditText emailsAttach;
 	Button calcButton;
 
+	private String device;
+	public static final String SMARTPHONE = "smartphone";
+	public static final String TABLET = "tablet";
+	public static final String LAPTOP = "laptop";
+	public static final String HOTSPOT = "hotspot";
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState)
@@ -34,20 +40,62 @@ public class BFragment extends Fragment
 		emailsAttach = (EditText) ll.findViewById(R.id.emailAttachNum);
 		return ll;
 	}
-	
-	public void calculateB(View v)
+
+	public double calculateB(String device)
 	{
 		int emailInt;
+		int emailAttachInt;
 		if (emails.getText().toString() == null
 				|| emails.getText().toString().isEmpty())
 		{
 			emailInt = 0;
+		} else
+		{
+			emailInt = Integer.parseInt(String.valueOf(emails.getText()));
 		}
-		emailInt = Integer.parseInt(String.valueOf(emails.getText()));
-//		double kiloTotal = (int) (getEmailSize(device) * emailInt);
-//		kiloTotal = Math.pow(kiloTotal, -6);
-//		double total = kiloTotal;
-//		estimate.setText(String.valueOf(total) + " GB");
+		if (emailsAttach.getText().toString() == null
+				|| emailsAttach.getText().toString().isEmpty())
+		{
+			emailAttachInt = 0;
+		} else
+		{
+			emailAttachInt = Integer.parseInt(String.valueOf(emailsAttach.getText()));
+		}
+		double kiloTotal = (int) (getEmailSize(device) * emailInt);
+		kiloTotal += (int) (getEmailSizeAttachment() * emailAttachInt);
+		kiloTotal = Math.pow(kiloTotal, -6);
+		double total = kiloTotal;
+		return total;
+	}
+
+	public int getEmailSize(String d)
+	{
+		if (d == SMARTPHONE)
+		{
+			return 20;
+		} else if (d == TABLET)
+		{
+			return 20;
+		} else if (d == LAPTOP)
+		{
+			return 35;
+		} else if (d == HOTSPOT)
+		{
+			return 20;
+		} else
+		{
+			return (Integer) null;
+		}
+	}
+
+	public int getEmailSizeAttachment()
+	{
+		return 300;
+	}
+
+	public int getMinuteMusicStream()
+	{
+		return 500;
 	}
 
 }

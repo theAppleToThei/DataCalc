@@ -11,16 +11,13 @@
     <string name="selectDeviceText">Select Your Device Below:</string>
     <string name="dataEstimate">0.0 GB</string>
     <string name="emailNoAttach">Emails Sent without Attachments</string>
-    
     <string name="ok">Ok</string>
     <string name="close">Close</string>
-    
     <string name="youtubedatacalc">YouTube Data Calculator</string>
     <string name="enterURL">Enter a YouTube URL</string>
     <string name="URLHint">e.g. http://youtu.be/3UOLj1-q67</string>
-    
     <string name="help">Help</string>
-    
+
     <string-array name="monthDayWeek">
         <item>a day</item>
         <item>a week</item>
@@ -36,5 +33,12 @@
     </string-array>
 
     <string name="title_activity_you_tube">YouTubeActivity</string>
+    <string name="title_activity_drawer">DrawerActivity</string>
+    <string name="title_section1">Device</string>
+    <string name="title_section2">Variables</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_example">Example action</string>
+    <string name="title_activity_about">About</string>
 
 </resources>

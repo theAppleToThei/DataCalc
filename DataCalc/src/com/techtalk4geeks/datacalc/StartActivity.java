@@ -10,6 +10,7 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,7 +21,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class StartActivity extends Activity
+public class StartActivity extends Activity 
 {
 	public static Context appContext;
 
@@ -34,6 +35,7 @@ public class StartActivity extends Activity
 	final int MONTH = 1;
 
 	private String device;
+	double total;
 	public static final String SMARTPHONE = "smartphone";
 	public static final String TABLET = "tablet";
 	public static final String LAPTOP = "laptop";
@@ -42,6 +44,14 @@ public class StartActivity extends Activity
 	EditText emails;
 	EditText emailsAttach;
 	TextView estimate;
+	
+	AFragment mAFragment;
+	BFragment mBFragment;
+	CFragment mCFragment;
+	
+	private NavigationDrawerFragment mNavigationDrawerFragment;
+
+	private CharSequence mTitle;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -51,6 +61,9 @@ public class StartActivity extends Activity
 		setTitle("Data Calc");
 		setContentView(R.layout.main);
 		appContext = getApplicationContext();
+		
+//		Intent drawer = new Intent(this, DrawerActivity.class);
+//		startActivity(drawer);
 
 		emails = (EditText) findViewById(R.id.emailNum);
 		emailsAttach = (EditText) findViewById(R.id.emailAttachNum);
@@ -64,13 +77,13 @@ public class StartActivity extends Activity
 		ActionBar.Tab VariablesTab = actionbar.newTab().setText("Variables");
 		ActionBar.Tab ResultsTab = actionbar.newTab().setText("Estimate");
 
-		Fragment PlayerFragment = new AFragment();
-		Fragment StationsFragment = new BFragment();
-		Fragment ResultsFragment = new CFragment();
+		mAFragment = new AFragment();
+		mBFragment = new BFragment();
+		mCFragment = new CFragment();
 
-		DevicesTab.setTabListener(new MyTabsListener(PlayerFragment));
-		VariablesTab.setTabListener(new MyTabsListener(StationsFragment));
-		ResultsTab.setTabListener(new MyTabsListener(ResultsFragment));
+		DevicesTab.setTabListener(new MyTabsListener(mAFragment));
+		VariablesTab.setTabListener(new MyTabsListener(mBFragment));
+		ResultsTab.setTabListener(new MyTabsListener(mCFragment));
 
 		actionbar.addTab(DevicesTab);
 		actionbar.addTab(VariablesTab);
@@ -96,10 +109,21 @@ public class StartActivity extends Activity
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
 		int id = item.getItemId();
+		if (id == R.id.calc_button)
+		{
+			calculateStart();
+			return true;
+		}
 		if (id == R.id.youtube_calc)
 		{
 			Intent youtubeCalc = new Intent(this, YouTubeActivity.class);
 			startActivity(youtubeCalc);
+			return true;
+		}
+		if (id == R.id.about)
+		{
+			Intent about = new Intent(this, YouTubeActivity.class);
+			startActivity(about);
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
@@ -129,35 +153,7 @@ public class StartActivity extends Activity
 		}
 	}
 
-	public int getEmailSize(String d)
-	{
-		if (d == SMARTPHONE)
-		{
-			return 20;
-		} else if (d == TABLET)
-		{
-			return 20;
-		} else if (d == LAPTOP)
-		{
-			return 35;
-		} else if (d == HOTSPOT)
-		{
-			return 20;
-		} else
-		{
-			return (Integer) null;
-		}
-	}
-
-	public int getEmailSizeAttachment()
-	{
-		return 300;
-	}
-
-	public int getMinuteMusicStream()
-	{
-		return 500;
-	}
+	
 
 	public void calculateTotal()
 	{
@@ -173,10 +169,12 @@ public class StartActivity extends Activity
 		// estimate.setText(String.valueOf(total) + " GB");
 	}
 
-	public void calculateStart(View v) {
-		BFragment b = new BFragment();
-		b.calculateB(v);
+	public void calculateStart() {
+		device = mAFragment.calculateA();
+		total = mBFragment.calculateB(device);
+		estimate.setText(String.valueOf(total) + " GB");
 	}
+
 }
 
 class MyTabsListener implements ActionBar.TabListener
