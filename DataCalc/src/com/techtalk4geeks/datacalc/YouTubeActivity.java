@@ -10,6 +10,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaMetadataRetriever;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -34,6 +35,15 @@ public class YouTubeActivity extends ActionBarActivity
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
+	}
+
+	@Override
+	public void onBackPressed() {
+	   Intent start = new Intent(null, StartActivity.class);
+	   start.addCategory(Intent.CATEGORY_HOME);
+	   start.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+	   startActivity(start);
+	   overridePendingTransition(R.anim.anim_in_down, R.anim.anim_out_down);
 	}
 
 	public long getVidTime(String URL)
@@ -77,22 +87,28 @@ public class YouTubeActivity extends ActionBarActivity
 		return super.onOptionsItemSelected(item);
 	}
 
-	public Dialog createYouTubeHelpDialog() {
-	    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-	    // Set the dialog title
-	    builder.setTitle(R.string.help);
-	    // Specify the list array, the items to be selected by default (null for none),
-	    // and the listener through which to receive callbacks when items are selected
-	    builder.setMessage("When you're data conscious and need to use it sparingly, use the YouTube Calc. It allows you to paste a link to any YouTube video and get an estimate of how much data you'll use over cellular data.");   
-	    // Set the action buttons
-	           builder.setNeutralButton(R.string.close, new DialogInterface.OnClickListener() {
-	               @Override
-	               public void onClick(DialogInterface dialog, int id) {
-	                   
-	               }
-	           });
+	public Dialog createYouTubeHelpDialog()
+	{
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		// Set the dialog title
+		builder.setTitle(R.string.help);
+		// Specify the list array, the items to be selected by default (null for
+		// none),
+		// and the listener through which to receive callbacks when items are
+		// selected
+		builder.setMessage("When you're data conscious and need to use it sparingly, use the YouTube Calc. It allows you to paste a link to any YouTube video and get an estimate of how much data you'll use over cellular data.");
+		// Set the action buttons
+		builder.setNeutralButton(R.string.close,
+				new DialogInterface.OnClickListener()
+				{
+					@Override
+					public void onClick(DialogInterface dialog, int id)
+					{
 
-	    return builder.create();
+					}
+				});
+
+		return builder.create();
 	}
 
 	/**

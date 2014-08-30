@@ -15,7 +15,15 @@ public class BFragment extends Fragment
 	StartActivity start = new StartActivity();
 	public EditText emails;
 	Spinner emailDate;
+	Spinner musicDate;
 	EditText emailsAttach;
+	EditText musics;
+	Spinner musicMinHour;
+	EditText webs;
+	Spinner websDate;
+	EditText photos;
+	Spinner photosDate;
+	
 	Button calcButton;
 
 	private String device;
@@ -40,6 +48,14 @@ public class BFragment extends Fragment
 				container, false);
 		emails = (EditText) ll.findViewById(R.id.emailNum);
 		emailsAttach = (EditText) ll.findViewById(R.id.emailAttachNum);
+		musics = (EditText) ll.findViewById(R.id.musicNum);
+		emailDate = (Spinner) ll.findViewById(R.id.emailMonth);
+		musicDate = (Spinner) ll.findViewById(R.id.musicMonth);
+		musicMinHour = (Spinner) ll.findViewById(R.id.musicMinHour);
+		webs = (EditText) ll.findViewById(R.id.webNum);
+		websDate = (Spinner) ll.findViewById(R.id.webMonth);
+		photos = (EditText) ll.findViewById(R.id.photoNum);
+		photosDate = (Spinner) ll.findViewById(R.id.photoMonth);
 		return ll;
 	}
 
@@ -47,6 +63,14 @@ public class BFragment extends Fragment
 	{
 		int emailInt;
 		int emailAttachInt;
+		int emailDateNum = 0;
+		int musicDateNum = 0;
+		int websDateNum = 0;
+		int websInt = 0;
+		int musicMinHourNum = 0;
+		int musicInt;
+		int photosInt = 0;
+		int photosDateNum = 0;
 		if (emails.getText().toString() == null
 				|| emails.getText().toString().isEmpty())
 		{
@@ -61,12 +85,89 @@ public class BFragment extends Fragment
 			emailAttachInt = 0;
 		} else
 		{
-			emailAttachInt = Integer.parseInt(String.valueOf(emailsAttach.getText()));
+			emailAttachInt = Integer.parseInt(String.valueOf(emailsAttach
+					.getText()));
 		}
-		double kiloTotal = (int) (getEmailSize(device) * emailInt);
+		if (musics.getText().toString().isEmpty())
+		{
+			musicInt = 0;
+		} else
+		{
+			musicInt = Integer.parseInt(String.valueOf(musics.getText()));
+		}
+		if (webs.getText().toString().isEmpty())
+		{
+			websInt = 0;
+		} else
+		{
+			websInt = Integer.parseInt(String.valueOf(webs.getText()));
+		}
+		if (photos.getText().toString().isEmpty())
+		{
+			photosInt = 0;
+		} else
+		{
+			photosInt = Integer.parseInt(String.valueOf(photos.getText()));
+		}
+		if (emailDate.getSelectedItem().toString().equals("a month"))
+		{
+			emailDateNum = 1;
+		} else if (emailDate.getSelectedItem().toString().equals("a week"))
+		{
+			emailDateNum = 5;
+		} else if (emailDate.getSelectedItem().toString().equals("a day"))
+		{
+			emailDateNum = 30;
+		}
+		if (musicDate.getSelectedItem().toString().equals("a month"))
+		{
+			musicDateNum = 1;
+		} else if (musicDate.getSelectedItem().toString().equals("a week"))
+		{
+			musicDateNum = 5;
+		} else if (musicDate.getSelectedItem().toString().equals("a day"))
+		{
+			musicDateNum = 30;
+		}
+		if (musicMinHour.getSelectedItem().toString().equals("minutes"))
+		{
+			musicMinHourNum = 1;
+		} else if (musicDate.getSelectedItem().toString().equals("hours"))
+		{
+			musicMinHourNum = 60;
+		}
+		if (websDate.getSelectedItem().toString().equals("a month"))
+		{
+			websDateNum = 1;
+		} else if (websDate.getSelectedItem().toString().equals("a week"))
+		{
+			websDateNum = 5;
+		} else if (websDate.getSelectedItem().toString().equals("a day"))
+		{
+			websDateNum = 30;
+		}
+		if (photosDate.getSelectedItem().toString().equals("a month"))
+		{
+			photosDateNum = 1;
+		} else if (photosDate.getSelectedItem().toString().equals("a week"))
+		{
+			photosDateNum = 5;
+		} else if (photosDate.getSelectedItem().toString().equals("a day"))
+		{
+			photosDateNum = 30;
+		}
+		
+		
+		double kiloTotal = 0;
+		kiloTotal += (int) (getEmailSize(device) * emailInt * emailDateNum);
+		kiloTotal += (int) (getMinuteMusicStream() * musicInt * musicDateNum * musicMinHourNum);
+		kiloTotal += (int) (getPhotoPost() * photosInt * photosDateNum);
+		double megaTotal = 0;
+		megaTotal += (int) (getHourWeb() * websInt * websDateNum);
 		kiloTotal += (int) (getEmailSizeAttachment() * emailAttachInt);
-		kiloTotal = kiloTotal / 1000000000;
-		double total = kiloTotal;
+		kiloTotal = kiloTotal / 1000000;
+		megaTotal = megaTotal / 1000;
+		double total = kiloTotal + megaTotal;
 		return total;
 	}
 
@@ -98,6 +199,16 @@ public class BFragment extends Fragment
 	public int getMinuteMusicStream()
 	{
 		return 500;
+	}
+
+	public int getHourWeb()
+	{
+		return 15;
+	}
+	
+	public int getPhotoPost()
+	{
+		return 350;
 	}
 
 }

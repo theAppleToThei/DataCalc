@@ -118,6 +118,7 @@ public class StartActivity extends Activity
 		{
 			Intent youtubeCalc = new Intent(this, YouTubeActivity.class);
 			startActivity(youtubeCalc);
+			overridePendingTransition(R.anim.anim_in_up, R.anim.anim_out_up);
 			return true;
 		}
 		if (id == R.id.about)
