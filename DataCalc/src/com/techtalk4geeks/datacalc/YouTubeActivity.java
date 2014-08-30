@@ -39,7 +39,7 @@ public class YouTubeActivity extends ActionBarActivity
 
 	@Override
 	public void onBackPressed() {
-	   Intent start = new Intent(null, StartActivity.class);
+	   Intent start = new Intent(this, StartActivity.class);
 	   start.addCategory(Intent.CATEGORY_HOME);
 	   start.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 	   startActivity(start);
