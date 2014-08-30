@@ -16,10 +16,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.os.Build;
 
 public class YouTubeActivity extends ActionBarActivity
 {
+	EditText mURL;
 
 	@SuppressLint("NewApi")
 	@Override
@@ -29,6 +31,7 @@ public class YouTubeActivity extends ActionBarActivity
 		setTitle("YouTube Calculator");
 		getActionBar().setIcon(R.drawable.youtube_calc_image);
 		setContentView(R.layout.activity_you_tube);
+		mURL = (EditText) findViewById(R.id.youtubeURL);
 
 		if (savedInstanceState == null)
 		{
@@ -43,7 +46,7 @@ public class YouTubeActivity extends ActionBarActivity
 	   start.addCategory(Intent.CATEGORY_HOME);
 	   start.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 	   startActivity(start);
-	   overridePendingTransition(R.anim.anim_in_down, R.anim.anim_out_down);
+	   overridePendingTransition(R.anim.anim_in_up, R.anim.anim_out_down);
 	}
 
 	public long getVidTime(String URL)
@@ -59,6 +62,12 @@ public class YouTubeActivity extends ActionBarActivity
 		long seconds = duration - (hours * 3600 + minutes * 60);
 		return duration;
 	}
+	
+	public void calculate(long l) {
+		Intent calc = new Intent(this, CalcActivity.class);
+		calc.putExtra("total", l);
+		startActivity(calc);
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
@@ -73,10 +82,11 @@ public class YouTubeActivity extends ActionBarActivity
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
 		int id = item.getItemId();
-		if (id == R.id.data)
+		if (id == R.id.calc)
 		{
-			Intent dataCalc = new Intent(this, StartActivity.class);
-			startActivity(dataCalc);
+			String url = mURL.getText().toString();
+			long time = getVidTime(url);
+			calculate(time);
 			return true;
 		}
 		if (id == R.id.help_button)

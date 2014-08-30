@@ -23,6 +23,9 @@ public class BFragment extends Fragment
 	Spinner websDate;
 	EditText photos;
 	Spinner photosDate;
+	EditText videos;
+	Spinner videosMinHour;
+	Spinner videosDate;
 	
 	Button calcButton;
 
@@ -56,6 +59,10 @@ public class BFragment extends Fragment
 		websDate = (Spinner) ll.findViewById(R.id.webMonth);
 		photos = (EditText) ll.findViewById(R.id.photoNum);
 		photosDate = (Spinner) ll.findViewById(R.id.photoMonth);
+		videos = (EditText) ll.findViewById(R.id.vidNum);
+		videosMinHour = (Spinner) ll.findViewById(R.id.vidMinHour);
+		videosDate = (Spinner) ll.findViewById(R.id.vidMonth);
+//		start.overridePendingTransition(R.anim.anim_in_right, R.anim.anim_out_right);
 		return ll;
 	}
 
@@ -64,13 +71,16 @@ public class BFragment extends Fragment
 		int emailInt;
 		int emailAttachInt;
 		int emailDateNum = 0;
-		int musicDateNum = 0;
 		int websDateNum = 0;
 		int websInt = 0;
+		int musicDateNum = 0;
 		int musicMinHourNum = 0;
 		int musicInt;
 		int photosInt = 0;
 		int photosDateNum = 0;
+		int videosInt = 0;
+		int videosMinHourNum = 0;
+		int videosDateNum = 0;
 		if (emails.getText().toString() == null
 				|| emails.getText().toString().isEmpty())
 		{
@@ -78,6 +88,13 @@ public class BFragment extends Fragment
 		} else
 		{
 			emailInt = Integer.parseInt(String.valueOf(emails.getText()));
+		}
+		if (videos.getText().toString().isEmpty())
+		{
+			videosInt = 0;
+		} else
+		{
+			videosInt = Integer.parseInt(String.valueOf(videos.getText()));
 		}
 		if (emailsAttach.getText().toString() == null
 				|| emailsAttach.getText().toString().isEmpty())
@@ -146,6 +163,16 @@ public class BFragment extends Fragment
 		{
 			websDateNum = 30;
 		}
+		if (videosDate.getSelectedItem().toString().equals("a month"))
+		{
+			videosDateNum = 1;
+		} else if (videosDate.getSelectedItem().toString().equals("a week"))
+		{
+			videosDateNum = 5;
+		} else if (videosDate.getSelectedItem().toString().equals("a day"))
+		{
+			videosDateNum = 30;
+		}
 		if (photosDate.getSelectedItem().toString().equals("a month"))
 		{
 			photosDateNum = 1;
@@ -156,6 +183,13 @@ public class BFragment extends Fragment
 		{
 			photosDateNum = 30;
 		}
+		if (videosMinHour.getSelectedItem().toString().equals("minutes"))
+		{
+			videosMinHourNum = 1;
+		} else if (videosMinHour.getSelectedItem().toString().equals("hours"))
+		{
+			videosMinHourNum = 60;
+		}
 		
 		
 		double kiloTotal = 0;
@@ -164,6 +198,7 @@ public class BFragment extends Fragment
 		kiloTotal += (int) (getPhotoPost() * photosInt * photosDateNum);
 		double megaTotal = 0;
 		megaTotal += (int) (getHourWeb() * websInt * websDateNum);
+		megaTotal += (int) (getVideoMin(device) * videosInt * videosDateNum);
 		kiloTotal += (int) (getEmailSizeAttachment() * emailAttachInt);
 		kiloTotal = kiloTotal / 1000000;
 		megaTotal = megaTotal / 1000;
@@ -210,5 +245,17 @@ public class BFragment extends Fragment
 	{
 		return 350;
 	}
-
+	public double getVideoMin(String d)
+	{
+		if (d != HOTSPOT)
+		{
+			return 5.1;
+		} else if (d == HOTSPOT)
+		{
+			return 15;
+		} else
+		{
+			return (Integer) null;
+		}
+	}
 }
