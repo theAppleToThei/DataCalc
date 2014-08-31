@@ -38,15 +38,45 @@ public class YouTubeActivity extends ActionBarActivity
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
+
+		Intent intent = getIntent();
+		String action = intent.getAction();
+		String type = intent.getType();
+
+		if (Intent.ACTION_SEND.equals(action) && type != null)
+		{
+			if ("text/plain".equals(type))
+			{
+				handleSendText(intent); // Handle text being sent
+			}
+		}
+	}
+
+	void handleSendText(Intent intent)
+	{
+		String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
+		if (sharedText != null)
+		{
+			for (int i = 0; i < sharedText.length() - 8; i++)
+			{
+				if (sharedText.substring(i, i + 8).equalsIgnoreCase("youtu.be"))
+				{
+					String youtubeURL = sharedText.substring(i - 7);
+					long length = getVidTime(youtubeURL);
+					calculate(length);
+				}
+			}
+		}
 	}
 
 	@Override
-	public void onBackPressed() {
-	   Intent start = new Intent(this, StartActivity.class);
-	   start.addCategory(Intent.CATEGORY_HOME);
-	   start.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-	   startActivity(start);
-	   overridePendingTransition(R.anim.anim_in_up, R.anim.anim_out_down);
+	public void onBackPressed()
+	{
+		Intent start = new Intent(this, StartActivity.class);
+		start.addCategory(Intent.CATEGORY_HOME);
+		start.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		startActivity(start);
+		overridePendingTransition(R.anim.anim_in_up, R.anim.anim_out_down);
 	}
 
 	public long getVidTime(String URL)
@@ -62,8 +92,9 @@ public class YouTubeActivity extends ActionBarActivity
 		long seconds = duration - (hours * 3600 + minutes * 60);
 		return duration;
 	}
-	
-	public void calculate(long l) {
+
+	public void calculate(long l)
+	{
 		Intent calc = new Intent(this, CalcActivity.class);
 		calc.putExtra("total", l);
 		startActivity(calc);
