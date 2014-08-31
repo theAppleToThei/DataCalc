@@ -1,11 +1,28 @@
 package com.techtalk4geeks.datacalc;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
+import org.apache.http.params.HttpProtocolParams;
+
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaMetadataRetriever;
@@ -22,6 +39,7 @@ import android.os.Build;
 public class YouTubeActivity extends ActionBarActivity
 {
 	EditText mURL;
+	String infourl = "";
 
 	@SuppressLint("NewApi")
 	@Override
@@ -57,6 +75,8 @@ public class YouTubeActivity extends ActionBarActivity
 		String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
 		if (sharedText != null)
 		{
+			// startActivity(intent);
+			// overridePendingTransition(R.anim.anim_in_up, R.anim.anim_out_up);
 			for (int i = 0; i < sharedText.length() - 8; i++)
 			{
 				if (sharedText.substring(i, i + 8).equalsIgnoreCase("youtu.be"))
@@ -152,6 +172,60 @@ public class YouTubeActivity extends ActionBarActivity
 		return builder.create();
 	}
 
+	// public int Youtube_Fetchinfo(Context context,String url,int timeout){
+	// if (!url.toLowerCase().contains("youtube"))
+	// return (Integer) null;
+	//
+	// //get video ID
+	// Pattern p = Pattern.compile(".+v=([^&\"]*)");
+	// Matcher m = p.matcher(url);
+	// if (m.find()) {
+	// infourl = "http://gdata.youtube.com/feeds/api/videos/"+m.group(1);
+	// } else
+	// return (Integer) null;
+	// }
+	//
+	// int responseCode = 0;
+	// int duration = 0;
+	// String sduration="";
+	// String title="";
+	// String movietitle = new String();
+	//
+	// //Get video information
+	// String defaultUA =
+	// "Mozilla/5.0 (Linux; U; Android 2.1; en-us) AppleWebKit/522+ (KHTML, like Gecko) Safari/419.3";
+	// HttpClient httpClient = new DefaultHttpClient();
+	// HttpGet httpGet = new HttpGet(infourl);
+	// HttpResponse httpResponse = null;
+	//
+	//
+	// httpClient.getParams().setParameter("http.connection.timeout", new
+	// Integer(timeout));
+	// HttpParams params1 = httpClient.getParams();
+	// HttpConnectionParams.setConnectionTimeout(params1, timeout);
+	// HttpConnectionParams.setSoTimeout(params1, timeout);
+	// params1.setParameter(HttpProtocolParams.USER_AGENT, defaultUA);
+	// httpResponse = httpClient.execute(httpGet);
+	// responseCode = httpResponse.getStatusLine().getStatusCode();
+	//
+	// if (responseCode == HttpStatus.SC_OK) {
+	// InputStream istream = httpResponse.getEntity().getContent();
+	// InputStreamReader reader = new InputStreamReader(istream);
+	// BufferedReader objBuf = new BufferedReader(reader);
+	// StringBuilder builder = new StringBuilder();
+	// String sLine;
+	//
+	// while((sLine = objBuf.readLine()) != null){
+	// builder.append(sLine);}
+	// String html = builder.toString();
+	// istream.close();
+	//
+	// //find duration info
+	// Pattern dp = Pattern.compile("seconds='(\\d+?)'");
+	// Matcher dm = dp.matcher(html);
+	// return duration;
+	// }
+
 	/**
 	 * A placeholder fragment containing a simple view.
 	 */
@@ -170,6 +244,6 @@ public class YouTubeActivity extends ActionBarActivity
 					container, false);
 			return rootView;
 		}
-	}
 
+	}
 }
