@@ -27,6 +27,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaMetadataRetriever;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -34,6 +35,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.os.Build;
 
 public class YouTubeActivity extends ActionBarActivity
@@ -72,21 +74,26 @@ public class YouTubeActivity extends ActionBarActivity
 
 	void handleSendText(Intent intent)
 	{
+		Log.d("DC", "handleSendText() called");
 		String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
 		if (sharedText != null)
 		{
+			Log.d("DC", "sharedText is not null");
 			// startActivity(intent);
 			// overridePendingTransition(R.anim.anim_in_up, R.anim.anim_out_up);
 			for (int i = 0; i < sharedText.length() - 8; i++)
 			{
 				if (sharedText.substring(i, i + 8).equalsIgnoreCase("youtu.be"))
 				{
-					String youtubeURL = sharedText.substring(i - 7);
+					Log.d("DC", "Found 'youtu.be' in sharedText");
+					int substring = i + 9;
+					String youtubeURL = "www.youtube.com/watch?v=" + sharedText.substring(substring);
 					long length = getVidTime(youtubeURL);
 					calculate(length);
 				}
 			}
 		}
+		Log.e("DC", "sharedText IS null");
 	}
 
 	@Override

@@ -1,7 +1,7 @@
 package com.techtalk4geeks.datacalc;
 
 import org.w3c.dom.Text;
-
+import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.Activity;
@@ -105,6 +105,7 @@ public class StartActivity extends Activity
 		return true;
 	}
 
+	@SuppressLint("NewApi")
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
@@ -112,7 +113,7 @@ public class StartActivity extends Activity
 		if (id == R.id.calc_button)
 		{
 			calculateStart();
-			overridePendingTransition(R.anim.anim_in_up, R.anim.anim_out_up);
+			overridePendingTransition(R.anim.anim_in_up, R.anim.anim_out_down);
 			return true;
 		}
 		if (id == R.id.youtube_calc)
@@ -124,8 +125,11 @@ public class StartActivity extends Activity
 		}
 		if (id == R.id.about)
 		{
-			Intent about = new Intent(this, YouTubeActivity.class);
+			Intent about = new Intent(this, About.class);
 			startActivity(about);
+			overridePendingTransition(R.anim.anim_in_up, R.anim.anim_out_up);
+			setTitle("About");
+//			getActionBar().setIcon(R.drawable.about);
 			return true;
 		}
 		return super.onOptionsItemSelected(item);

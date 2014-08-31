@@ -3,6 +3,7 @@ package com.techtalk4geeks.datacalc;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -28,27 +29,15 @@ public class About extends ActionBarActivity
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
+	public void onBackPressed()
 	{
-
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.about, menu);
-		return true;
+		Intent start = new Intent(this, StartActivity.class);
+		start.addCategory(Intent.CATEGORY_HOME);
+		start.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		startActivity(start);
+		overridePendingTransition(R.anim.anim_in_up, R.anim.anim_out_down);
 	}
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item)
-	{
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings)
-		{
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
 
 	/**
 	 * A placeholder fragment containing a simple view.
