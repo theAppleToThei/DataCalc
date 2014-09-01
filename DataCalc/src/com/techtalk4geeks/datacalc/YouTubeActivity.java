@@ -1,6 +1,7 @@
 package com.techtalk4geeks.datacalc;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -26,7 +27,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaMetadataRetriever;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -69,7 +72,7 @@ public class YouTubeActivity extends ActionBarActivity
 			{
 				handleSendText(intent); // Handle text being sent
 			}
-		}
+		} 
 	}
 
 	void handleSendText(Intent intent)
@@ -87,7 +90,8 @@ public class YouTubeActivity extends ActionBarActivity
 				{
 					Log.d("DC", "Found 'youtu.be' in sharedText");
 					int substring = i + 9;
-					String youtubeURL = "www.youtube.com/watch?v=" + sharedText.substring(substring);
+					String youtubeURL = "www.youtube.com/watch?v="
+							+ sharedText.substring(substring);
 					long length = getVidTime(youtubeURL);
 					calculate(length);
 				}
@@ -95,7 +99,14 @@ public class YouTubeActivity extends ActionBarActivity
 		}
 		Log.e("DC", "sharedText IS null");
 	}
-
+	
+	public void calculate(long l)
+	{
+		Intent calc = new Intent(this, CalcActivity.class);
+		calc.putExtra("total", l);
+		startActivity(calc);
+	}
+	
 	@Override
 	public void onBackPressed()
 	{
@@ -118,13 +129,6 @@ public class YouTubeActivity extends ActionBarActivity
 		long minutes = (duration - hours * 3600) / 60;
 		long seconds = duration - (hours * 3600 + minutes * 60);
 		return duration;
-	}
-
-	public void calculate(long l)
-	{
-		Intent calc = new Intent(this, CalcActivity.class);
-		calc.putExtra("total", l);
-		startActivity(calc);
 	}
 
 	@Override

@@ -1,10 +1,8 @@
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.techtalk4geeks.datacalc.CalcActivity"
-    tools:ignore="MergeRootFrame" >
+    android:orientation="vertical" >
 
     <TableRow
         android:layout_width="wrap_content"
@@ -15,8 +13,8 @@
             android:id="@+id/yourDataEstimate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="25sp"
-            android:text="Your Data Estimate" />
+            android:text="It Would Take "
+            android:textSize="25sp" />
     </TableRow>
 
     <TableRow
@@ -25,7 +23,7 @@
         android:orientation="vertical" >
 
         <TextView
-            android:id="@+id/dataEstimate"
+            android:id="@+id/dataEstimatePhoto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/dataEstimate"
@@ -42,15 +40,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="150sp"
-            android:textSize="25sp"
-            android:text="per month" />
-
+            android:text=" MB To Upload This Photo"
+            android:textSize="25sp" />
     </TableRow>
 
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/data_calc_blank" />
-
-</TableLayout>
+</LinearLayout>

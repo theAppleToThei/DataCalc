@@ -1,6 +1,9 @@
 package com.techtalk4geeks.datacalc;
 
+import java.io.File;
+
 import org.w3c.dom.Text;
+
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
@@ -9,6 +12,7 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
@@ -21,7 +25,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class StartActivity extends Activity 
+public class StartActivity extends Activity
 {
 	public static Context appContext;
 
@@ -44,11 +48,11 @@ public class StartActivity extends Activity
 	EditText emails;
 	EditText emailsAttach;
 	TextView estimate;
-	
+
 	AFragment mAFragment;
 	BFragment mBFragment;
 	CFragment mCFragment;
-	
+
 	private NavigationDrawerFragment mNavigationDrawerFragment;
 
 	private CharSequence mTitle;
@@ -61,9 +65,9 @@ public class StartActivity extends Activity
 		setTitle("Data Calc");
 		setContentView(R.layout.main);
 		appContext = getApplicationContext();
-		
-//		Intent drawer = new Intent(this, DrawerActivity.class);
-//		startActivity(drawer);
+
+		// Intent drawer = new Intent(this, DrawerActivity.class);
+		// startActivity(drawer);
 
 		emails = (EditText) findViewById(R.id.emailNum);
 		emailsAttach = (EditText) findViewById(R.id.emailAttachNum);
@@ -95,6 +99,18 @@ public class StartActivity extends Activity
 		hotspot = (RadioButton) findViewById(R.id.hotspot);
 
 		setTitle("Data Calc");
+
+		Intent intent = getIntent();
+		String action = intent.getAction();
+		String type = intent.getType();
+
+		if (Intent.ACTION_SEND.equals(action) && type != null)
+		{
+			if (type.startsWith("image/"))
+			{
+				handleSendImage(intent); // Handle single image being sent
+			}
+		}
 	}
 
 	@Override
@@ -129,7 +145,7 @@ public class StartActivity extends Activity
 			startActivity(about);
 			overridePendingTransition(R.anim.anim_in_up, R.anim.anim_out_up);
 			setTitle("About");
-//			getActionBar().setIcon(R.drawable.about);
+			// getActionBar().setIcon(R.drawable.about);
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
@@ -159,8 +175,6 @@ public class StartActivity extends Activity
 		}
 	}
 
-	
-
 	public void calculateTotal()
 	{
 		int emailInt;
@@ -175,14 +189,39 @@ public class StartActivity extends Activity
 		// estimate.setText(String.valueOf(total) + " GB");
 	}
 
-	public void calculateStart() {
+	public void calculateStart()
+	{
 		device = mAFragment.calculateA();
 		total = mBFragment.calculateB(device);
 		Intent calc = new Intent(this, CalcActivity.class);
 		calc.putExtra("device", device);
 		calc.putExtra("total", total);
 		startActivity(calc);
-//		estimate.setText(String.valueOf(total) + " GB");
+		// estimate.setText(String.valueOf(total) + " GB");
+	}
+
+	public void calculate(long l)
+	{
+		Intent calc = new Intent(this, CalcActivity.class);
+		calc.putExtra("total", l);
+		startActivity(calc);
+	}
+
+	void handleSendImage(Intent intent)
+	{
+		Uri imageUri = (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM);
+		File image = new File(imageUri.getPath());
+		long length = image.length();
+		length = length / 1024;
+		calculatePhoto(length);
+		overridePendingTransition(R.anim.anim_in_up, R.anim.anim_out_down);
+	}
+	
+	public void calculatePhoto(long l)
+	{
+		setContentView(R.layout.calculatephoto);
+		TextView dataEstimatePhoto = (TextView) findViewById(R.id.dataEstimatePhoto);
+		dataEstimatePhoto.setText(String.valueOf(l));
 	}
 
 }
