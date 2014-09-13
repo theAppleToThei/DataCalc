@@ -51,6 +51,6 @@
         android:id="@+id/imageView1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/data_calc_blank" />
+        android:src="@drawable/data_calc_graphic_corrected" />
 
 </TableLayout>
