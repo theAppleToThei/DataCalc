@@ -90,7 +90,7 @@ public class YouTubeActivity extends ActionBarActivity
 				{
 					Log.d("DC", "Found 'youtu.be' in sharedText");
 					int substring = i + 9;
-					String youtubeURL = "www.youtube.com/watch?v="
+					String youtubeURL = "http://www.youtube.com/watch?v="
 							+ sharedText.substring(substring);
 					long length = getVidTime(youtubeURL);
 					calculate(length);
