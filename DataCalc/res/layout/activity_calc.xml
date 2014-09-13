@@ -1,56 +1,29 @@
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.techtalk4geeks.datacalc.CalcActivity"
     tools:ignore="MergeRootFrame" >
 
-    <TableRow
+    <TextView
+        android:id="@+id/dataEstimate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:text="@string/dataEstimate"
+        android:textSize="40sp" />
 
-        <TextView
-            android:id="@+id/yourDataEstimate"
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:id="@+id/image_container"
+        android:layout_height="fill_parent" >
+
+        <ImageView
+            android:id="@+id/data_calc_graphic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="25sp"
-            android:text="Your Data Estimate" />
-    </TableRow>
+            android:src="@drawable/data_calc_graphic_corrected" />
+    </RelativeLayout>
 
-    <TableRow
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/dataEstimate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/dataEstimate"
-            android:textSize="40sp" />
-    </TableRow>
-
-    <TableRow
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="150sp"
-            android:textSize="25sp"
-            android:text="per month" />
-
-    </TableRow>
-
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/data_calc_graphic_corrected" />
-
-</TableLayout>
+</LinearLayout>

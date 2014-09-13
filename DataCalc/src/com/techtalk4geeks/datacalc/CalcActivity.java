@@ -5,6 +5,7 @@ import java.text.DecimalFormat;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
+import android.app.ActionBar.LayoutParams;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,6 +13,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.os.Build;
 
@@ -29,6 +34,17 @@ public class CalcActivity extends ActionBarActivity
 		TextView estimate = (TextView) findViewById(R.id.dataEstimate);
 		DecimalFormat df = new DecimalFormat("#.##");
 		estimate.setText((df.format(myTotal)) + " GB");
+		if (myTotal > 0.5)
+		{
+			ImageView dataCalcGraphic = (ImageView) (findViewById(R.id.data_calc_graphic));
+			
+			ImageView point5 = new ImageView(this);
+			point5.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
+			point5.setImageDrawable(this.getResources().getDrawable(R.drawable.data_calc_graphic_point_5));
+			RelativeLayout rl = (RelativeLayout) (findViewById(R.id.image_container));
+			rl.addView(point5);
+//			dataCalcGraphic.bringToFront();
+		}
 
 		if (savedInstanceState == null)
 		{
@@ -42,7 +58,6 @@ public class CalcActivity extends ActionBarActivity
 	{
 
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.calc, menu);
 		return true;
 	}
 
