@@ -33,7 +33,7 @@ public class CalcActivity extends ActionBarActivity
 		setTitle("Data Calc");
 		TextView estimate = (TextView) findViewById(R.id.dataEstimate);
 		DecimalFormat df = new DecimalFormat("#.##");
-		estimate.setText((df.format(myTotal)) + " GB");
+		estimate.setText((df.format(myTotal)));
 		if (myTotal > 0.5)
 		{
 			ImageView dataCalcGraphic = (ImageView) (findViewById(R.id.data_calc_graphic));

@@ -9,7 +9,7 @@
     <string name="laptop">Laptop</string>
     <string name="hotspot">Mobile Hotspot</string>
     <string name="selectDeviceText">Select Your Device Below:</string>
-    <string name="dataEstimate">0.0 GB</string>
+    <string name="dataEstimate">0.0</string>
     <string name="emailNoAttach">Emails Sent without Attachments</string>
     <string name="ok">Ok</string>
     <string name="close">Close</string>
@@ -41,5 +41,6 @@
     <string name="action_example">Example action</string>
     <string name="title_activity_about">About</string>
     <string name="title_activity_calc">CalcActivity</string>
+    <color name="transparent">#00000000</color>
 
 </resources>

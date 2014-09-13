@@ -7,16 +7,9 @@
     tools:context="com.techtalk4geeks.datacalc.CalcActivity"
     tools:ignore="MergeRootFrame" >
 
-    <TextView
-        android:id="@+id/dataEstimate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/dataEstimate"
-        android:textSize="40sp" />
-
     <RelativeLayout
-        android:layout_width="fill_parent"
         android:id="@+id/image_container"
+        android:layout_width="fill_parent"
         android:layout_height="fill_parent" >
 
         <ImageView
@@ -24,6 +17,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/data_calc_graphic_corrected" />
+
+        <TextView
+            android:id="@+id/dataEstimate"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:text="@string/dataEstimate"
+            android:textSize="40sp" />
     </RelativeLayout>
 
 </LinearLayout>
