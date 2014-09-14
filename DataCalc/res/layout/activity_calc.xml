@@ -15,16 +15,16 @@
         <ImageView
             android:id="@+id/data_calc_graphic"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/data_calc_graphic_corrected" />
-
-        <TextView
-            android:id="@+id/dataEstimate"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:gravity="center"
-            android:text="@string/dataEstimate"
-            android:textSize="40sp" />
+            android:layout_height="match_parent"
+            android:src="@drawable/data_calc_graphic_back_small" />
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/dataEstimate"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:text="@string/dataEstimate"
+        android:textSize="40sp" />
 
 </LinearLayout>

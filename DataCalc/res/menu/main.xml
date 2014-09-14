@@ -16,10 +16,10 @@
     </item>
     
     <item
-        android:id="@+id/about"
-        android:icon="@drawable/about"
+        android:id="@+id/help"
+        android:icon="@drawable/help"
         android:showAsAction="never"
-        android:title="About">
+        android:title="Help">
     </item>
     
 </menu>

@@ -139,15 +139,20 @@ public class StartActivity extends Activity
 			overridePendingTransition(R.anim.anim_in_up, R.anim.anim_out_up);
 			return true;
 		}
-		if (id == R.id.about)
+		if (id == R.id.help)
 		{
-			Intent about = new Intent(this, About.class);
-			startActivity(about);
-			overridePendingTransition(R.anim.anim_in_up, R.anim.anim_out_up);
-			setTitle("About");
-			// getActionBar().setIcon(R.drawable.about);
+			
 			return true;
 		}
+//		if (id == R.id.about)
+//		{
+//			Intent about = new Intent(this, About.class);
+//			startActivity(about);
+//			overridePendingTransition(R.anim.anim_in_up, R.anim.anim_out_up);
+//			setTitle("About");
+//			// getActionBar().setIcon(R.drawable.about);
+//			return true;
+//		}
 		return super.onOptionsItemSelected(item);
 	}
 
@@ -238,8 +243,6 @@ class MyTabsListener implements ActionBar.TabListener
 	@Override
 	public void onTabReselected(Tab tab, FragmentTransaction ft)
 	{
-		Toast.makeText(StartActivity.appContext, "Reselected!",
-				Toast.LENGTH_LONG).show();
 	}
 
 	@Override

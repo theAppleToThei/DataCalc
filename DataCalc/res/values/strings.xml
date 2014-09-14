@@ -9,7 +9,7 @@
     <string name="laptop">Laptop</string>
     <string name="hotspot">Mobile Hotspot</string>
     <string name="selectDeviceText">Select Your Device Below:</string>
-    <string name="dataEstimate">0.0</string>
+    <string name="dataEstimate">ERROR</string>
     <string name="emailNoAttach">Emails Sent without Attachments</string>
     <string name="ok">Ok</string>
     <string name="close">Close</string>
