@@ -45,6 +45,27 @@ public class CalcActivity extends ActionBarActivity
 			rl.addView(point5);
 //			dataCalcGraphic.bringToFront();
 		}
+		if (myTotal > 1)
+		{
+			ImageView dataCalcGraphic = (ImageView) (findViewById(R.id.data_calc_graphic));
+			
+			ImageView one = new ImageView(this);
+			one.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
+			one.setImageDrawable(this.getResources().getDrawable(R.drawable.data_calc_graphic_1));
+			RelativeLayout rl = (RelativeLayout) (findViewById(R.id.image_container));
+			rl.addView(one);
+//			dataCalcGraphic.bringToFront();
+		}
+//		if (myTotal > 1.5)
+//		{
+//			ImageView dataCalcGraphic = (ImageView) (findViewById(R.id.data_calc_graphic));
+//			
+//			ImageView onePointFive = new ImageView(this);
+//			onePointFive.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
+//			onePointFive.setImageDrawable(this.getResources().getDrawable(R.drawable.data_calc_graphic_1_point_5));
+//			RelativeLayout rl = (RelativeLayout) (findViewById(R.id.image_container));
+//			rl.addView(onePointFive);
+//		}
 
 		if (savedInstanceState == null)
 		{
