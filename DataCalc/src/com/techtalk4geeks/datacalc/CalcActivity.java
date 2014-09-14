@@ -107,6 +107,16 @@ public class CalcActivity extends ActionBarActivity
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
+	@Override
+	public void onBackPressed()
+	{
+		Intent start = new Intent(this, StartActivity.class);
+		start.addCategory(Intent.CATEGORY_HOME);
+		start.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		startActivity(start);
+		overridePendingTransition(R.anim.anim_in_up, R.anim.anim_out_down);
+	}
 
 	/**
 	 * A placeholder fragment containing a simple view.
