@@ -35,6 +35,7 @@ public class CalcActivity extends ActionBarActivity
 		estimate.bringToFront();
 		DecimalFormat df = new DecimalFormat("#.##");
 		estimate.setText((df.format(myTotal)));
+		RelativeLayout rl = (RelativeLayout) (findViewById(R.id.image_container));
 		if (myTotal > 0.5)
 		{
 			ImageView dataCalcGraphic = (ImageView) (findViewById(R.id.data_calc_graphic));
@@ -42,7 +43,6 @@ public class CalcActivity extends ActionBarActivity
 			ImageView point5 = new ImageView(this);
 			point5.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
 			point5.setImageDrawable(this.getResources().getDrawable(R.drawable.data_calc_graphic_point_5_small));
-			RelativeLayout rl = (RelativeLayout) (findViewById(R.id.image_container));
 			rl.addView(point5);
 //			dataCalcGraphic.bringToFront();
 			
@@ -52,6 +52,19 @@ public class CalcActivity extends ActionBarActivity
 			rl = (RelativeLayout) (findViewById(R.id.image_container));
 			rl.addView(dataCalcGraphicFront);
 		}
+		else {
+			ImageView dataCalcGraphicFront = new ImageView(this);
+			dataCalcGraphicFront.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
+			dataCalcGraphicFront.setImageDrawable(this.getResources().getDrawable(R.drawable.data_calc_graphic_front_small));
+			rl = (RelativeLayout) (findViewById(R.id.image_container));
+			rl.addView(dataCalcGraphicFront);
+			TextView dataCalculation = new TextView(this);
+			dataCalculation.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
+			dataCalculation.setTextSize(15);
+			dataCalculation.setText(df.format(myTotal));
+//			TextView dataCalculation = (TextView) (findViewById(R.id.dataEstimate));
+			rl.addView(dataCalculation);
+		}
 		if (myTotal > 1)
 		{
 			ImageView dataCalcGraphic = (ImageView) (findViewById(R.id.data_calc_graphic));
@@ -59,7 +72,6 @@ public class CalcActivity extends ActionBarActivity
 			ImageView one = new ImageView(this);
 			one.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
 			one.setImageDrawable(this.getResources().getDrawable(R.drawable.data_calc_graphic_1_small));
-			RelativeLayout rl = (RelativeLayout) (findViewById(R.id.image_container));
 			rl.addView(one);
 //			dataCalcGraphic.bringToFront();
 			ImageView dataCalcGraphicFront = new ImageView(this);
@@ -68,16 +80,90 @@ public class CalcActivity extends ActionBarActivity
 			rl = (RelativeLayout) (findViewById(R.id.image_container));
 			rl.addView(dataCalcGraphicFront);
 		}
-//		if (myTotal > 1.5)
-//		{
-//			ImageView dataCalcGraphic = (ImageView) (findViewById(R.id.data_calc_graphic));
-//			
-//			ImageView onePointFive = new ImageView(this);
-//			onePointFive.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
-//			onePointFive.setImageDrawable(this.getResources().getDrawable(R.drawable.data_calc_graphic_1_point_5));
-//			RelativeLayout rl = (RelativeLayout) (findViewById(R.id.image_container));
-//			rl.addView(onePointFive);
-//		}
+		if (myTotal > 1.5)
+		{
+			ImageView dataCalcGraphic = (ImageView) (findViewById(R.id.data_calc_graphic));
+			
+			ImageView onePointFive = new ImageView(this);
+			onePointFive.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
+			onePointFive.setImageDrawable(this.getResources().getDrawable(R.drawable.data_calc_graphic_1_point_5_small));
+			rl.addView(onePointFive);
+			ImageView dataCalcGraphicFront = new ImageView(this);
+			dataCalcGraphicFront.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
+			dataCalcGraphicFront.setImageDrawable(this.getResources().getDrawable(R.drawable.data_calc_graphic_front_small));
+			rl = (RelativeLayout) (findViewById(R.id.image_container));
+			rl.addView(dataCalcGraphicFront);
+		}
+		if (myTotal > 2)
+		{
+			ImageView dataCalcGraphic = (ImageView) (findViewById(R.id.data_calc_graphic));
+			
+			ImageView onePointFive = new ImageView(this);
+			onePointFive.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
+			onePointFive.setImageDrawable(this.getResources().getDrawable(R.drawable.data_calc_graphic_2_small));
+			rl.addView(onePointFive);
+			ImageView dataCalcGraphicFront = new ImageView(this);
+			dataCalcGraphicFront.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
+			dataCalcGraphicFront.setImageDrawable(this.getResources().getDrawable(R.drawable.data_calc_graphic_front_small));
+			rl = (RelativeLayout) (findViewById(R.id.image_container));
+			rl.addView(dataCalcGraphicFront);
+		}
+		if (myTotal > 2.5)
+		{
+			ImageView dataCalcGraphic = (ImageView) (findViewById(R.id.data_calc_graphic));
+			
+			ImageView onePointFive = new ImageView(this);
+			onePointFive.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
+			onePointFive.setImageDrawable(this.getResources().getDrawable(R.drawable.data_calc_graphic_2_point_5_small));
+			rl.addView(onePointFive);
+			ImageView dataCalcGraphicFront = new ImageView(this);
+			dataCalcGraphicFront.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
+			dataCalcGraphicFront.setImageDrawable(this.getResources().getDrawable(R.drawable.data_calc_graphic_front_small));
+			rl = (RelativeLayout) (findViewById(R.id.image_container));
+			rl.addView(dataCalcGraphicFront);
+		}
+		if (myTotal > 3)
+		{
+			ImageView dataCalcGraphic = (ImageView) (findViewById(R.id.data_calc_graphic));
+			
+			ImageView onePointFive = new ImageView(this);
+			onePointFive.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
+			onePointFive.setImageDrawable(this.getResources().getDrawable(R.drawable.data_calc_graphic_3_small));
+			rl.addView(onePointFive);
+			ImageView dataCalcGraphicFront = new ImageView(this);
+			dataCalcGraphicFront.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
+			dataCalcGraphicFront.setImageDrawable(this.getResources().getDrawable(R.drawable.data_calc_graphic_front_small));
+			rl = (RelativeLayout) (findViewById(R.id.image_container));
+			rl.addView(dataCalcGraphicFront);
+		}
+		if (myTotal > 3.5)
+		{
+			ImageView dataCalcGraphic = (ImageView) (findViewById(R.id.data_calc_graphic));
+			
+			ImageView onePointFive = new ImageView(this);
+			onePointFive.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
+			onePointFive.setImageDrawable(this.getResources().getDrawable(R.drawable.data_calc_graphic_3_point_5_small));
+			rl.addView(onePointFive);
+			ImageView dataCalcGraphicFront = new ImageView(this);
+			dataCalcGraphicFront.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
+			dataCalcGraphicFront.setImageDrawable(this.getResources().getDrawable(R.drawable.data_calc_graphic_front_small));
+			rl = (RelativeLayout) (findViewById(R.id.image_container));
+			rl.addView(dataCalcGraphicFront);
+		}
+		if (myTotal > 4)
+		{
+			ImageView dataCalcGraphic = (ImageView) (findViewById(R.id.data_calc_graphic));
+			
+			ImageView onePointFive = new ImageView(this);
+			onePointFive.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
+			onePointFive.setImageDrawable(this.getResources().getDrawable(R.drawable.data_calc_graphic_3_point_5_plus_small));
+			rl.addView(onePointFive);
+			ImageView dataCalcGraphicFront = new ImageView(this);
+			dataCalcGraphicFront.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
+			dataCalcGraphicFront.setImageDrawable(this.getResources().getDrawable(R.drawable.data_calc_graphic_front_small));
+			rl = (RelativeLayout) (findViewById(R.id.image_container));
+			rl.addView(dataCalcGraphicFront);
+		}
 
 		if (savedInstanceState == null)
 		{
