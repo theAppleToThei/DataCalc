@@ -2,11 +2,18 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.techtalk4geeks.datacalc"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="1.1" >
 
     <uses-sdk
         android:minSdkVersion="11"
         android:targetSdkVersion="19" />
+
+    <permission
+        android:name="permission.TEST"
+        android:label="Monitor Data Usage"
+        android:protectionLevel="normal" />
+
+    <uses-permission android:name="your.namespace.permission.TEST" />
 
     <application
         android:allowBackup="true"
@@ -41,17 +48,17 @@
             android:label="@string/title_activity_you_tube" >
         </activity>
         <activity
-            android:name="com.techtalk4geeks.datacalc.DrawerActivity"
-            android:label="@string/title_activity_drawer" >
-        </activity>
-        <activity
             android:name="com.techtalk4geeks.datacalc.About"
             android:label="@string/title_activity_about" >
         </activity>
         <activity
             android:name="com.techtalk4geeks.datacalc.CalcActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_calc" >
+            android:label="@string/title_activity_calc"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.techtalk4geeks.datacalc.DrawerTest"
+            android:label="@string/title_activity_drawer_test" >
         </activity>
     </application>
 

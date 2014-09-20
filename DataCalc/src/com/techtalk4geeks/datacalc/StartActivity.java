@@ -63,6 +63,8 @@ public class StartActivity extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setTitle("Data Calc");
+//		Intent drawer = new Intent(this, DrawerTest.class);
+//		startActivity(drawer);
 		setContentView(R.layout.main);
 		appContext = getApplicationContext();
 
