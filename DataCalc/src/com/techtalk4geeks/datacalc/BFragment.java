@@ -2,6 +2,7 @@ package com.techtalk4geeks.datacalc;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +27,7 @@ public class BFragment extends Fragment
 	EditText videos;
 	Spinner videosMinHour;
 	Spinner videosDate;
-	
+
 	Button calcButton;
 
 	private String device;
@@ -39,6 +40,7 @@ public class BFragment extends Fragment
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState)
 	{
+		Log.i("DC", "BFragment: onCreateView");
 		// Inflate the layout for this fragment_container
 		// return inflater.inflate(R.layout.bfragment, container, false);
 
@@ -62,12 +64,14 @@ public class BFragment extends Fragment
 		videos = (EditText) ll.findViewById(R.id.vidNum);
 		videosMinHour = (Spinner) ll.findViewById(R.id.vidMinHour);
 		videosDate = (Spinner) ll.findViewById(R.id.vidMonth);
-//		start.overridePendingTransition(R.anim.anim_in_right, R.anim.anim_out_right);
+		// start.overridePendingTransition(R.anim.anim_in_right,
+		// R.anim.anim_out_right);
 		return ll;
 	}
 
 	public double calculateB(String device)
 	{
+		Log.i("DC", "Calculate B");
 		int emailInt;
 		int emailAttachInt;
 		int emailDateNum = 0;
@@ -81,23 +85,21 @@ public class BFragment extends Fragment
 		int videosInt = 0;
 		int videosMinHourNum = 0;
 		int videosDateNum = 0;
-		if (emails.getText().toString().equals(null)
-				|| emails.getText().toString().isEmpty())
+		if (emails == null || emails.getText().toString().isEmpty())
 		{
 			emailInt = 0;
 		} else
 		{
 			emailInt = Integer.parseInt(String.valueOf(emails.getText()));
 		}
-		if (videos.getText().toString().isEmpty() || videos.getText().toString().equals(null))
+		if (videos == null || videos.getText().toString().isEmpty())
 		{
 			videosInt = 0;
 		} else
 		{
 			videosInt = Integer.parseInt(String.valueOf(videos.getText()));
 		}
-		if (emailsAttach.getText().toString().equals(null)
-				|| emailsAttach.getText().toString().isEmpty())
+		if (emailsAttach == null || emailsAttach.getText().toString().isEmpty())
 		{
 			emailAttachInt = 0;
 		} else
@@ -105,28 +107,29 @@ public class BFragment extends Fragment
 			emailAttachInt = Integer.parseInt(String.valueOf(emailsAttach
 					.getText()));
 		}
-		if (musics.getText().toString().isEmpty() || musics.getText().toString().equals(null))
+		if (musics == null || musics.getText().toString().isEmpty())
 		{
 			musicInt = 0;
 		} else
 		{
 			musicInt = Integer.parseInt(String.valueOf(musics.getText()));
 		}
-		if (webs.getText().toString().isEmpty() || webs.getText().toString().equals(null))
+		if (webs == null || webs.getText().toString().isEmpty())
 		{
 			websInt = 0;
 		} else
 		{
 			websInt = Integer.parseInt(String.valueOf(webs.getText()));
 		}
-		if (photos.getText().toString().isEmpty() || photos.getText().toString().equals(null))
+		if (photos == null || photos.getText().toString().isEmpty())
 		{
 			photosInt = 0;
 		} else
 		{
 			photosInt = Integer.parseInt(String.valueOf(photos.getText()));
 		}
-		if (emailDate.getSelectedItem().toString().equals("a month") || emailDate.getSelectedItem().toString().equals(null))
+		if (emailDate == null
+				|| emailDate.getSelectedItem().toString().equals("a month"))
 		{
 			emailDateNum = 1;
 		} else if (emailDate.getSelectedItem().toString().equals("a week"))
@@ -136,7 +139,8 @@ public class BFragment extends Fragment
 		{
 			emailDateNum = 30;
 		}
-		if (musicDate.getSelectedItem().toString().equals("a month") || musicDate.getSelectedItem().toString().equals(null))
+		if (musicDate == null
+				|| musicDate.getSelectedItem().toString().equals("a month"))
 		{
 			musicDateNum = 1;
 		} else if (musicDate.getSelectedItem().toString().equals("a week"))
@@ -146,14 +150,16 @@ public class BFragment extends Fragment
 		{
 			musicDateNum = 30;
 		}
-		if (musicMinHour.getSelectedItem().toString().equals("minutes") || musicMinHour.getSelectedItem().toString().equals(null))
+		if (musicMinHour == null
+				|| musicMinHour.getSelectedItem().toString().equals("minutes"))
 		{
 			musicMinHourNum = 1;
 		} else if (musicDate.getSelectedItem().toString().equals("hours"))
 		{
 			musicMinHourNum = 60;
 		}
-		if (websDate.getSelectedItem().toString().equals("a month") || websDate.getSelectedItem().toString().equals(null))
+		if (websDate == null
+				|| websDate.getSelectedItem().toString().equals("a month"))
 		{
 			websDateNum = 1;
 		} else if (websDate.getSelectedItem().toString().equals("a week"))
@@ -163,7 +169,8 @@ public class BFragment extends Fragment
 		{
 			websDateNum = 30;
 		}
-		if (videosDate.getSelectedItem().toString().equals("a month") || videosDate.getSelectedItem().toString().equals(null))
+		if (videosDate == null
+				|| videosDate.getSelectedItem().toString().equals("a month"))
 		{
 			videosDateNum = 1;
 		} else if (videosDate.getSelectedItem().toString().equals("a week"))
@@ -173,7 +180,8 @@ public class BFragment extends Fragment
 		{
 			videosDateNum = 30;
 		}
-		if (photosDate.getSelectedItem().toString().equals("a month") || photosDate.getSelectedItem().toString().equals(null))
+		if (photosDate == null
+				|| photosDate.getSelectedItem().toString().equals("a month"))
 		{
 			photosDateNum = 1;
 		} else if (photosDate.getSelectedItem().toString().equals("a week"))
@@ -183,15 +191,15 @@ public class BFragment extends Fragment
 		{
 			photosDateNum = 30;
 		}
-		if (videosMinHour.getSelectedItem().toString().equals("minutes") || videosMinHour.getSelectedItem().toString().equals(null))
+		if (videosMinHour == null
+				|| videosMinHour.getSelectedItem().toString().equals("minutes"))
 		{
 			videosMinHourNum = 1;
 		} else if (videosMinHour.getSelectedItem().toString().equals("hours"))
 		{
 			videosMinHourNum = 60;
 		}
-		
-		
+
 		double kiloTotal = 0;
 		kiloTotal += (int) (getEmailSize(device) * emailInt * emailDateNum);
 		kiloTotal += (int) (getMinuteMusicStream() * musicInt * musicDateNum * musicMinHourNum);
@@ -240,11 +248,12 @@ public class BFragment extends Fragment
 	{
 		return 15;
 	}
-	
+
 	public int getPhotoPost()
 	{
 		return 350;
 	}
+
 	public double getVideoMin(String d)
 	{
 		if (d != HOTSPOT)

@@ -79,22 +79,24 @@ public class StartActivity extends Activity
 		ActionBar actionbar = getActionBar();
 		actionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
-		ActionBar.Tab DevicesTab = actionbar.newTab().setText("Devices");
-		ActionBar.Tab VariablesTab = actionbar.newTab().setText("Variables");
-		ActionBar.Tab ResultsTab = actionbar.newTab().setText("Estimate");
+		ActionBar.Tab devicesTab = actionbar.newTab().setText("Devices");
+		ActionBar.Tab variablesTab = actionbar.newTab().setText("Variables");
+		ActionBar.Tab resultsTab = actionbar.newTab().setText("Estimate");
 
+		Log.i("DC", "Creating fragments");
 		mAFragment = new AFragment();
 		mBFragment = new BFragment();
 		mCFragment = new CFragment();
+		Log.i("DC", "Fragments created");
 
-		DevicesTab.setTabListener(new MyTabsListener(mAFragment));
-		VariablesTab.setTabListener(new MyTabsListener(mBFragment));
-		ResultsTab.setTabListener(new MyTabsListener(mCFragment));
+		devicesTab.setTabListener(new MyTabsListener(mAFragment));
+		variablesTab.setTabListener(new MyTabsListener(mBFragment));
+		resultsTab.setTabListener(new MyTabsListener(mCFragment));
 
-		actionbar.addTab(DevicesTab);
-		actionbar.addTab(VariablesTab);
+		actionbar.addTab(devicesTab);
+		actionbar.addTab(variablesTab);
 		// actionbar.addTab(ResultsTab);
-
+		
 		smartphone = (RadioButton) findViewById(R.id.smartphone);
 		tablet = (RadioButton) findViewById(R.id.tablet);
 		laptop = (RadioButton) findViewById(R.id.laptop);
@@ -250,6 +252,7 @@ class MyTabsListener implements ActionBar.TabListener
 	@Override
 	public void onTabSelected(Tab tab, FragmentTransaction ft)
 	{
+		Log.i("DC", "onTabSelected");
 		ft.replace(R.id.fragment_container, fragment);
 	}
 
