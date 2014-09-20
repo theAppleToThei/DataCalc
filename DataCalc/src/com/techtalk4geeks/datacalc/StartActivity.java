@@ -85,6 +85,7 @@ public class StartActivity extends Activity
 
 		Log.i("DC", "Creating fragments");
 		mAFragment = new AFragment();
+		mAFragment.setActivity(this, variablesTab);
 		mBFragment = new BFragment();
 		mCFragment = new CFragment();
 		Log.i("DC", "Fragments created");
