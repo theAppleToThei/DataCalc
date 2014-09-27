@@ -5,8 +5,11 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,6 +21,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
+import org.json.JSONObject;
 
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
@@ -73,12 +77,18 @@ public class YouTubeActivity extends ActionBarActivity
 		{
 			if ("text/plain".equals(type))
 			{
-				handleSendText(intent); // Handle text being sent
+				try
+				{
+					handleSendText(intent);
+				} catch (Exception e)
+				{
+					e.printStackTrace();
+				}
 			}
 		}
 	}
 
-	void handleSendText(Intent intent)
+	void handleSendText(Intent intent) throws Exception
 	{
 		Log.d("DC", "handleSendText() called");
 		String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
@@ -94,10 +104,13 @@ public class YouTubeActivity extends ActionBarActivity
 					Log.d("DC", "Found 'youtu.be' in sharedText");
 					int substring = i + 9;
 					String youtubeURL = "https://www.googleapis.com/youtube/v3/videos?id="
-							+ sharedText.substring(substring) + "&key=" + API_KEY + "&part=contentDetails";
+							+ sharedText.substring(substring)
+							+ "&key="
+							+ API_KEY + "&part=contentDetails";
 					Log.d("DC", youtubeURL);
-					long length = getVidTime(youtubeURL);
-					calculate(length);
+					getYouTubeContentDetails(youtubeURL);
+					// long length = getVidTime(youtubeURL);
+					// calculate(length);
 				}
 			}
 		}
@@ -121,9 +134,64 @@ public class YouTubeActivity extends ActionBarActivity
 		overridePendingTransition(R.anim.anim_in_up, R.anim.anim_out_down);
 	}
 
-	public void getYouTubeContentDetails()
+	public void getYouTubeContentDetails(String youTubeURL) throws Exception
 	{
-		URL url;
+		URL url = new URL(youTubeURL);
+		URLConnection connection;
+		connection = url.openConnection();
+
+		HttpURLConnection httpConnection = (HttpURLConnection) connection;
+
+		int responseCode = httpConnection.getResponseCode();
+		Log.d("DC", "responseCode:\n" + responseCode);
+		
+		if (responseCode == HttpURLConnection.HTTP_OK)
+		{
+			InputStream in = httpConnection.getInputStream();
+			String jsonStr = getStringFromInputStream(in);
+			Log.d("DC", "jsonStr:\n" + jsonStr);
+			JSONObject jsonOb = new JSONObject(jsonStr);
+			JSONObject uglyEncodedDuration = jsonOb.getJSONObject("contentDetails");
+			String duration = uglyEncodedDuration.getString("duration");
+			Log.d("DC", "duration:\n" + duration);
+		}
+	}
+
+	private static String getStringFromInputStream(InputStream is)
+	{
+
+		BufferedReader br = null;
+		StringBuilder sb = new StringBuilder();
+
+		String line;
+		try
+		{
+
+			br = new BufferedReader(new InputStreamReader(is));
+			while ((line = br.readLine()) != null)
+			{
+				sb.append(line);
+			}
+
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		} finally
+		{
+			if (br != null)
+			{
+				try
+				{
+					br.close();
+				} catch (IOException e)
+				{
+					e.printStackTrace();
+				}
+			}
+		}
+
+		return sb.toString();
+
 	}
 
 	public long getVidTime(String url)
