@@ -64,14 +64,6 @@ public class CalcActivity extends ActionBarActivity
 					.getDrawable(R.drawable.data_calc_graphic_front_small));
 			rl = (RelativeLayout) (findViewById(R.id.image_container));
 			rl.addView(dataCalcGraphicFront);
-			TextView dataCalculation = new TextView(this);
-			dataCalculation.setLayoutParams(new LayoutParams(
-					LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-			dataCalculation.setTextSize(15);
-			dataCalculation.setText(df.format(myTotal));
-			// TextView dataCalculation = (TextView)
-			// (findViewById(R.id.dataEstimate));
-			rl.addView(dataCalculation);
 		}
 		if (myTotal > 1)
 		{

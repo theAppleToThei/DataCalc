@@ -8,18 +8,18 @@
         android:title="Estimate">
     </item>
     
-    <item
+     <item
         android:id="@+id/youtube_calc"
         android:icon="@drawable/youtube_calc_image"
         android:showAsAction="never"
         android:title="@string/youtubedatacalc">
-    </item>
+    </item> 
     
-    <item
+     <item
         android:id="@+id/help"
         android:icon="@drawable/help"
         android:showAsAction="never"
         android:title="Help">
-    </item>
+    </item> 
     
 </menu>

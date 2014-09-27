@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -45,6 +47,7 @@ public class YouTubeActivity extends ActionBarActivity
 {
 	EditText mURL;
 	String infourl = "";
+	static final String API_KEY = "AIzaSyAdEJJkaHnPcgTBogJMIHQdoPd6V94Qaao-KSA5rRYRQ";
 
 	@SuppressLint("NewApi")
 	@Override
@@ -72,7 +75,7 @@ public class YouTubeActivity extends ActionBarActivity
 			{
 				handleSendText(intent); // Handle text being sent
 			}
-		} 
+		}
 	}
 
 	void handleSendText(Intent intent)
@@ -90,8 +93,9 @@ public class YouTubeActivity extends ActionBarActivity
 				{
 					Log.d("DC", "Found 'youtu.be' in sharedText");
 					int substring = i + 9;
-					String youtubeURL = "http://www.youtube.com/watch?v="
-							+ sharedText.substring(substring);
+					String youtubeURL = "https://www.googleapis.com/youtube/v3/videos?id="
+							+ sharedText.substring(substring) + "&key=" + API_KEY + "&part=contentDetails";
+					Log.d("DC", youtubeURL);
 					long length = getVidTime(youtubeURL);
 					calculate(length);
 				}
@@ -99,14 +103,14 @@ public class YouTubeActivity extends ActionBarActivity
 		}
 		Log.e("DC", "sharedText IS null");
 	}
-	
+
 	public void calculate(long l)
 	{
 		Intent calc = new Intent(this, CalcActivity.class);
 		calc.putExtra("total", l);
 		startActivity(calc);
 	}
-	
+
 	@Override
 	public void onBackPressed()
 	{
@@ -117,10 +121,16 @@ public class YouTubeActivity extends ActionBarActivity
 		overridePendingTransition(R.anim.anim_in_up, R.anim.anim_out_down);
 	}
 
-	public long getVidTime(String URL)
+	public void getYouTubeContentDetails()
 	{
+		URL url;
+	}
+
+	public long getVidTime(String url)
+	{
+		Uri uri = Uri.parse(url);
 		MediaMetadataRetriever retriever = new MediaMetadataRetriever();
-		retriever.setDataSource(URL);
+		retriever.setDataSource(this, uri);
 		String time = retriever
 				.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
 		long timeInmillisec = Long.parseLong(time);
