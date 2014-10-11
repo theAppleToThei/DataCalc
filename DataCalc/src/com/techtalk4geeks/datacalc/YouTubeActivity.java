@@ -29,11 +29,13 @@ import android.support.v4.app.Fragment;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.ActionBar.LayoutParams;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -44,7 +46,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.RelativeLayout;
 import android.os.Build;
 
 public class YouTubeActivity extends ActionBarActivity
@@ -99,19 +103,32 @@ public class YouTubeActivity extends ActionBarActivity
 			// overridePendingTransition(R.anim.anim_in_up, R.anim.anim_out_up);
 			for (int i = 0; i < sharedText.length() - 8; i++)
 			{
+				int substring = 0;
 				if (sharedText.substring(i, i + 8).equalsIgnoreCase("youtu.be"))
 				{
 					Log.d("DC", "Found 'youtu.be' in sharedText");
-					int substring = i + 9;
-					String youtubeURL = "https://www.googleapis.com/youtube/v3/videos?id="
-							+ sharedText.substring(substring)
-							+ "&key="
-							+ API_KEY + "&part=contentDetails";
-					Log.d("DC", youtubeURL);
-					getYouTubeContentDetails(youtubeURL);
-					// long length = getVidTime(youtubeURL);
-					// calculate(length);
+					substring = i + 9;
+				} else if (sharedText.substring(i, i + 12).equalsIgnoreCase(
+						"youtube.com/"))
+				{
+					Log.d("DC", "Found 'youtube.com/' in sharedText");
+					substring = i + 12;
+				} else
+				{
+					// Screw them
+//					Log.d("DC", "Unexpected sharedText = " + sharedText);
+					continue;
 				}
+				String youtubeURL = "https://www.googleapis.com/youtube/v3/videos?id="
+						+ sharedText.substring(substring)
+						+ "&key="
+						+ API_KEY
+						+ "&part=contentDetails";
+				Log.d("DC", youtubeURL);
+				new YouTubeAPIOperations().execute(youtubeURL);
+				Log.d("DC", "after execute");
+				// long length = getVidTime(youtubeURL);
+				// calculate(length);
 			}
 		}
 		Log.e("DC", "sharedText IS null");
@@ -134,7 +151,7 @@ public class YouTubeActivity extends ActionBarActivity
 		overridePendingTransition(R.anim.anim_in_up, R.anim.anim_out_down);
 	}
 
-	public void getYouTubeContentDetails(String youTubeURL) throws Exception
+	public String getYouTubeContentDetails(String youTubeURL) throws Exception
 	{
 		URL url = new URL(youTubeURL);
 		URLConnection connection;
@@ -144,16 +161,22 @@ public class YouTubeActivity extends ActionBarActivity
 
 		int responseCode = httpConnection.getResponseCode();
 		Log.d("DC", "responseCode:\n" + responseCode);
-		
+
 		if (responseCode == HttpURLConnection.HTTP_OK)
 		{
+
 			InputStream in = httpConnection.getInputStream();
 			String jsonStr = getStringFromInputStream(in);
 			Log.d("DC", "jsonStr:\n" + jsonStr);
 			JSONObject jsonOb = new JSONObject(jsonStr);
-			JSONObject uglyEncodedDuration = jsonOb.getJSONObject("contentDetails");
+			JSONObject uglyEncodedDuration = jsonOb
+					.getJSONObject("contentDetails");
 			String duration = uglyEncodedDuration.getString("duration");
 			Log.d("DC", "duration:\n" + duration);
+			return duration;
+		} else
+		{
+			return "Error";
 		}
 	}
 
@@ -194,6 +217,70 @@ public class YouTubeActivity extends ActionBarActivity
 
 	}
 
+	public void showCalculation(double estimate)
+	{
+		setContentView(R.layout.activity_calc);
+		overridePendingTransition(R.anim.anim_in_up, R.anim.anim_out_down);
+
+		ImageView dataCalcGraphic = (ImageView) (findViewById(R.id.data_calc_graphic));
+
+		RelativeLayout rl = (RelativeLayout) (findViewById(R.id.image_container));
+
+		if (estimate > 0.40)
+		{
+			ImageView point5 = new ImageView(this);
+			point5.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
+					LayoutParams.MATCH_PARENT));
+			point5.setImageDrawable(this.getResources().getDrawable(
+					R.drawable.data_calc_graphic_point_5_small));
+			rl.addView(point5);
+		}
+		if (estimate > 0.90)
+		{
+			ImageView one = new ImageView(this);
+			one.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
+					LayoutParams.MATCH_PARENT));
+			one.setImageDrawable(this.getResources().getDrawable(
+					R.drawable.data_calc_graphic_1_small));
+			rl.addView(one);
+		}
+		if (estimate > 1.40)
+		{
+			ImageView onePointFive = new ImageView(this);
+			onePointFive.setLayoutParams(new LayoutParams(
+					LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+			onePointFive.setImageDrawable(this.getResources().getDrawable(
+					R.drawable.data_calc_graphic_1_point_5_small));
+			rl.addView(onePointFive);
+		}
+		if (estimate > 1.90)
+		{
+			ImageView onePointFive = new ImageView(this);
+			onePointFive.setLayoutParams(new LayoutParams(
+					LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+			onePointFive.setImageDrawable(this.getResources().getDrawable(
+					R.drawable.data_calc_graphic_2_small));
+			rl.addView(onePointFive);
+		}
+		if (estimate > 2.40)
+		{
+			ImageView onePointFive = new ImageView(this);
+			onePointFive.setLayoutParams(new LayoutParams(
+					LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+			onePointFive.setImageDrawable(this.getResources().getDrawable(
+					R.drawable.data_calc_graphic_2_point_5_small));
+			rl.addView(onePointFive);
+		}
+
+		ImageView dataCalcGraphicFront = new ImageView(this);
+		dataCalcGraphicFront.setLayoutParams(new LayoutParams(
+				LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+		dataCalcGraphicFront.setImageDrawable(this.getResources().getDrawable(
+				R.drawable.youtube_calc_graphic_corrected_small));
+		rl = (RelativeLayout) (findViewById(R.id.image_container));
+		rl.addView(dataCalcGraphicFront);
+	}
+
 	public long getVidTime(String url)
 	{
 		Uri uri = Uri.parse(url);
@@ -224,10 +311,18 @@ public class YouTubeActivity extends ActionBarActivity
 		int id = item.getItemId();
 		if (id == R.id.calc)
 		{
-			String url = mURL.getText().toString();
-			long time = getVidTime(url);
-			calculate(time);
-			return true;
+			if (mURL != null)
+			{
+				String url = mURL.getText().toString();
+				long time = getVidTime(url);
+				calculate(time);
+				showCalculation(time);
+				return true;
+			} else
+			{
+				setContentView(R.layout.activity_calc);
+				overridePendingTransition(R.anim.anim_in_up, R.anim.anim_out_up);
+			}
 		}
 		if (id == R.id.help_button)
 		{
@@ -334,5 +429,43 @@ public class YouTubeActivity extends ActionBarActivity
 			return rootView;
 		}
 
+	}
+
+	private class YouTubeAPIOperations extends
+			AsyncTask<String, String, String>
+	{
+
+		@Override
+		protected void onPreExecute()
+		{
+			Log.i("DC", "Made it to onPreExecute()");
+			super.onPreExecute();
+		}
+
+		@Override
+		protected String doInBackground(String... params)
+		{
+			Log.i("DC", "Made it to doInBackground()");
+			try
+			{
+				return getYouTubeContentDetails(params[0]);
+			} catch (Exception e)
+			{
+				Log.e("DC", "Error After Program Start");
+			}
+
+			return "Error";
+		}
+
+		@Override
+		protected void onPostExecute(String result)
+		{
+			Log.d("DC", "Reached onPostExecute, Result = " + result);
+		}
+
+		@Override
+		protected void onProgressUpdate(String... values)
+		{
+		}
 	}
 }
