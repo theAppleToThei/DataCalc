@@ -21,6 +21,11 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
+import org.joda.time.Period;
+import org.joda.time.Seconds;
+import org.joda.time.format.ISOPeriodFormat;
+import org.joda.time.format.PeriodFormatter;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.support.v7.app.ActionBarActivity;
@@ -55,7 +60,7 @@ public class YouTubeActivity extends ActionBarActivity
 {
 	EditText mURL;
 	String infourl = "";
-	static final String API_KEY = "AIzaSyAdEJJkaHnPcgTBogJMIHQdoPd6V94Qaao-KSA5rRYRQ";
+	static final String API_KEY = "AIzaSyAdEJJkaHnPcgTBogJMIHQdoPd6V94Qaao";
 
 	@SuppressLint("NewApi")
 	@Override
@@ -98,7 +103,7 @@ public class YouTubeActivity extends ActionBarActivity
 		String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
 		if (sharedText != null)
 		{
-			Log.d("DC", "sharedText is not null");
+			Log.d("DC", "sharedText is not null: " + sharedText);
 			// startActivity(intent);
 			// overridePendingTransition(R.anim.anim_in_up, R.anim.anim_out_up);
 			for (int i = 0; i < sharedText.length() - 8; i++)
@@ -125,8 +130,14 @@ public class YouTubeActivity extends ActionBarActivity
 						+ API_KEY
 						+ "&part=contentDetails";
 				Log.d("DC", youtubeURL);
+				Log.d("DC", "YouTube ID: " + sharedText.substring(substring));
 				new YouTubeAPIOperations().execute(youtubeURL);
 				Log.d("DC", "after execute");
+				PeriodFormatter formatter = ISOPeriodFormat.standard();
+				Period p = formatter.parsePeriod("PT1H1M13S");
+				Seconds s = p.toStandardSeconds();
+
+				System.out.println(s.getSeconds());
 				// long length = getVidTime(youtubeURL);
 				// calculate(length);
 			}
@@ -169,7 +180,9 @@ public class YouTubeActivity extends ActionBarActivity
 			String jsonStr = getStringFromInputStream(in);
 			Log.d("DC", "jsonStr:\n" + jsonStr);
 			JSONObject jsonOb = new JSONObject(jsonStr);
-			JSONObject uglyEncodedDuration = jsonOb
+			JSONArray items = jsonOb.getJSONArray("items");
+			JSONObject zeroElement = items.getJSONObject(0);
+			JSONObject uglyEncodedDuration = zeroElement
 					.getJSONObject("contentDetails");
 			String duration = uglyEncodedDuration.getString("duration");
 			Log.d("DC", "duration:\n" + duration);
