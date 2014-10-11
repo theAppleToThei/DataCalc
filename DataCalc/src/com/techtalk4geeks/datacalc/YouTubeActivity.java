@@ -21,6 +21,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
+import org.joda.time.Minutes;
 import org.joda.time.Period;
 import org.joda.time.Seconds;
 import org.joda.time.format.ISOPeriodFormat;
@@ -133,11 +134,8 @@ public class YouTubeActivity extends ActionBarActivity
 				Log.d("DC", "YouTube ID: " + sharedText.substring(substring));
 				new YouTubeAPIOperations().execute(youtubeURL);
 				Log.d("DC", "after execute");
-				PeriodFormatter formatter = ISOPeriodFormat.standard();
-				Period p = formatter.parsePeriod("PT1H1M13S");
-				Seconds s = p.toStandardSeconds();
+				
 
-				System.out.println(s.getSeconds());
 				// long length = getVidTime(youtubeURL);
 				// calculate(length);
 			}
@@ -461,10 +459,20 @@ public class YouTubeActivity extends ActionBarActivity
 			Log.i("DC", "Made it to doInBackground()");
 			try
 			{
-				return getYouTubeContentDetails(params[0]);
+				String result = getYouTubeContentDetails(params[0]);
+				PeriodFormatter formatter = ISOPeriodFormat.standard();
+				Period p = formatter.parsePeriod(result);
+				int durationSeconds = p.toStandardSeconds().getSeconds()
+						+ 60 * p.toStandardMinutes().getMinutes() + 3600 * p.toStandardHours().getHours();
+				
+				final int videoMegaMinute = 2;
+				final double videoMegaSecond = videoMegaMinute / 60;
+				double total = durationSeconds * videoMegaSecond;
+				showCalculation(total);
+				
 			} catch (Exception e)
 			{
-				Log.e("DC", "Error After Program Start");
+				Log.e("DC", "Error After Program Start: " + e);
 			}
 
 			return "Error";
