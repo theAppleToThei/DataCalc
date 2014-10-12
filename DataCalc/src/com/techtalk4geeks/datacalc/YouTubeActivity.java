@@ -97,7 +97,7 @@ public class YouTubeActivity extends ActionBarActivity
 			}
 		}
 	}
-
+	
 	void handleSendText(Intent intent) throws Exception
 	{
 		Log.d("DC", "handleSendText() called");
@@ -325,9 +325,13 @@ public class YouTubeActivity extends ActionBarActivity
 			if (mURL != null)
 			{
 				String url = mURL.getText().toString();
-				long time = getVidTime(url);
-				calculate(time);
-				showCalculation(time);
+				try
+				{
+					getYouTubeContentDetails(url);
+				} catch (Exception e)
+				{
+					e.printStackTrace();
+				}
 				return true;
 			} else
 			{
