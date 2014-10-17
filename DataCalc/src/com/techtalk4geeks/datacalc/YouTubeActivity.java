@@ -36,6 +36,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ActionBar.LayoutParams;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -62,16 +63,41 @@ public class YouTubeActivity extends ActionBarActivity
 	EditText mURL;
 	String infourl = "";
 	static final String API_KEY = "AIzaSyAdEJJkaHnPcgTBogJMIHQdoPd6V94Qaao";
+	Boolean isYouTubeAuto = false;
 
 	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
+		isYouTubeAuto = false;
 		super.onCreate(savedInstanceState);
 		setTitle("YouTube Calculator");
 		getActionBar().setIcon(R.drawable.youtube_calc_image);
 		setContentView(R.layout.activity_you_tube);
 		mURL = (EditText) findViewById(R.id.youtubeURL);
+		
+//		ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+//
+//		String pasteData = "";
+//		
+//		// Gets the ID of the "paste" menu item
+//		MenuItem mPasteItem = menu.findItem(R.id.menu_paste);
+//
+//		// If the clipboard doesn't contain data, disable the paste menu item.
+//		// If it does contain data, decide if you can handle the data.
+//		if (!(clipboard.hasPrimaryClip())) {
+//
+//		    mPasteItem.setEnabled(false);
+//
+//		    } else if (!(clipboard.getPrimaryClipDescription().hasMimeType(MIMETYPE_TEXT_PLAIN))) {
+//
+//		        // This disables the paste menu item, since the clipboard has data but it is not plain text
+//		        mPasteItem.setEnabled(false);
+//		    } else {
+//
+//		        // This enables the paste menu item, since the clipboard contains plain text.
+//		        mPasteItem.setEnabled(true);
+//		    }
 
 		if (savedInstanceState == null)
 		{
@@ -100,6 +126,7 @@ public class YouTubeActivity extends ActionBarActivity
 	
 	void handleSendText(Intent intent) throws Exception
 	{
+		isYouTubeAuto = true;
 		Log.d("DC", "handleSendText() called");
 		String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
 		if (sharedText != null)
@@ -150,15 +177,20 @@ public class YouTubeActivity extends ActionBarActivity
 		startActivity(calc);
 	}
 
-	@Override
-	public void onBackPressed()
-	{
-		Intent start = new Intent(this, StartActivity.class);
-		start.addCategory(Intent.CATEGORY_HOME);
-		start.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		startActivity(start);
-		overridePendingTransition(R.anim.anim_in_up, R.anim.anim_out_down);
-	}
+//	@Override
+//	public void onBackPressed()
+//	{
+//		if (!isYouTubeAuto)
+//		{
+//		Intent start = new Intent(this, StartActivity.class);
+//		start.addCategory(Intent.CATEGORY_HOME);
+//		start.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//		startActivity(start);
+//		overridePendingTransition(R.anim.anim_in_up, R.anim.anim_out_down);
+//		} else {
+//			return;
+//		}
+//	}
 
 	public String getYouTubeContentDetails(String youTubeURL) throws Exception
 	{
