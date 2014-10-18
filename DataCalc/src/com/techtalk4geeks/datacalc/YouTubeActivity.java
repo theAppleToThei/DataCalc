@@ -30,6 +30,8 @@ import org.joda.time.format.PeriodFormatter;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.android.vending.billing.IInAppBillingService;
+
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -38,14 +40,17 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ActionBar.LayoutParams;
 import android.content.ClipboardManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.IBinder;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -68,6 +73,23 @@ public class YouTubeActivity extends ActionBarActivity
 	static final String API_KEY = "AIzaSyAdEJJkaHnPcgTBogJMIHQdoPd6V94Qaao";
 	Boolean isYouTubeAuto = false;
 
+	IInAppBillingService mService;
+
+	ServiceConnection mServiceConn = new ServiceConnection()
+	{
+		@Override
+		public void onServiceDisconnected(ComponentName name)
+		{
+			mService = null;
+		}
+
+		@Override
+		public void onServiceConnected(ComponentName name, IBinder service)
+		{
+			mService = IInAppBillingService.Stub.asInterface(service);
+		}
+	};
+
 	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -78,6 +100,11 @@ public class YouTubeActivity extends ActionBarActivity
 		getActionBar().setIcon(R.drawable.youtube_calc_image);
 		setContentView(R.layout.activity_you_tube);
 		mURL = (EditText) findViewById(R.id.youtubeURL);
+
+		Intent serviceIntent = new Intent(
+				"com.android.vending.billing.InAppBillingService.BIND");
+		serviceIntent.setPackage("com.android.vending");
+		bindService(serviceIntent, mServiceConn, Context.BIND_AUTO_CREATE);
 
 		// ClipboardManager clipboard = (ClipboardManager)
 		// getSystemService(Context.CLIPBOARD_SERVICE);

@@ -8,6 +8,13 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.techtalk4geeks.datacalc.YouTubeActivity$PlaceholderFragment" >
 
+    <ProgressBar
+        android:id="@+id/progressBar1"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true" />
+
     <TextView
         android:id="@+id/enterURL"
         android:layout_width="wrap_content"
@@ -20,9 +27,9 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/enterURL"
         android:layout_below="@+id/enterURL"
+        android:ems="10"
         android:hint="@string/URLHint"
-        android:inputType="textUri"
-        android:ems="10" >
+        android:inputType="textUri" >
 
         <requestFocus />
     </EditText>
