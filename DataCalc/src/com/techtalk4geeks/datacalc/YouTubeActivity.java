@@ -56,6 +56,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.os.Build;
 
 public class YouTubeActivity extends ActionBarActivity
@@ -75,29 +76,35 @@ public class YouTubeActivity extends ActionBarActivity
 		getActionBar().setIcon(R.drawable.youtube_calc_image);
 		setContentView(R.layout.activity_you_tube);
 		mURL = (EditText) findViewById(R.id.youtubeURL);
-		
-//		ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-//
-//		String pasteData = "";
-//		
-//		// Gets the ID of the "paste" menu item
-//		MenuItem mPasteItem = menu.findItem(R.id.menu_paste);
-//
-//		// If the clipboard doesn't contain data, disable the paste menu item.
-//		// If it does contain data, decide if you can handle the data.
-//		if (!(clipboard.hasPrimaryClip())) {
-//
-//		    mPasteItem.setEnabled(false);
-//
-//		    } else if (!(clipboard.getPrimaryClipDescription().hasMimeType(MIMETYPE_TEXT_PLAIN))) {
-//
-//		        // This disables the paste menu item, since the clipboard has data but it is not plain text
-//		        mPasteItem.setEnabled(false);
-//		    } else {
-//
-//		        // This enables the paste menu item, since the clipboard contains plain text.
-//		        mPasteItem.setEnabled(true);
-//		    }
+
+		// ClipboardManager clipboard = (ClipboardManager)
+		// getSystemService(Context.CLIPBOARD_SERVICE);
+		//
+		// String pasteData = "";
+		//
+		// // Gets the ID of the "paste" menu item
+		// MenuItem mPasteItem = menu.findItem(R.id.menu_paste);
+		//
+		// // If the clipboard doesn't contain data, disable the paste menu
+		// item.
+		// // If it does contain data, decide if you can handle the data.
+		// if (!(clipboard.hasPrimaryClip())) {
+		//
+		// mPasteItem.setEnabled(false);
+		//
+		// } else if
+		// (!(clipboard.getPrimaryClipDescription().hasMimeType(MIMETYPE_TEXT_PLAIN)))
+		// {
+		//
+		// // This disables the paste menu item, since the clipboard has data
+		// but it is not plain text
+		// mPasteItem.setEnabled(false);
+		// } else {
+		//
+		// // This enables the paste menu item, since the clipboard contains
+		// plain text.
+		// mPasteItem.setEnabled(true);
+		// }
 
 		if (savedInstanceState == null)
 		{
@@ -123,7 +130,7 @@ public class YouTubeActivity extends ActionBarActivity
 			}
 		}
 	}
-	
+
 	void handleSendText(Intent intent) throws Exception
 	{
 		isYouTubeAuto = true;
@@ -149,7 +156,7 @@ public class YouTubeActivity extends ActionBarActivity
 				} else
 				{
 					// Screw them
-//					Log.d("DC", "Unexpected sharedText = " + sharedText);
+					// Log.d("DC", "Unexpected sharedText = " + sharedText);
 					continue;
 				}
 				String youtubeURL = "https://www.googleapis.com/youtube/v3/videos?id="
@@ -161,7 +168,6 @@ public class YouTubeActivity extends ActionBarActivity
 				Log.d("DC", "YouTube ID: " + sharedText.substring(substring));
 				new YouTubeAPIOperations().execute(youtubeURL);
 				Log.d("DC", "after execute");
-				
 
 				// long length = getVidTime(youtubeURL);
 				// calculate(length);
@@ -177,20 +183,20 @@ public class YouTubeActivity extends ActionBarActivity
 		startActivity(calc);
 	}
 
-//	@Override
-//	public void onBackPressed()
-//	{
-//		if (!isYouTubeAuto)
-//		{
-//		Intent start = new Intent(this, StartActivity.class);
-//		start.addCategory(Intent.CATEGORY_HOME);
-//		start.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//		startActivity(start);
-//		overridePendingTransition(R.anim.anim_in_up, R.anim.anim_out_down);
-//		} else {
-//			return;
-//		}
-//	}
+	// @Override
+	// public void onBackPressed()
+	// {
+	// if (!isYouTubeAuto)
+	// {
+	// Intent start = new Intent(this, StartActivity.class);
+	// start.addCategory(Intent.CATEGORY_HOME);
+	// start.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+	// startActivity(start);
+	// overridePendingTransition(R.anim.anim_in_up, R.anim.anim_out_down);
+	// } else {
+	// return;
+	// }
+	// }
 
 	public String getYouTubeContentDetails(String youTubeURL) throws Exception
 	{
@@ -266,7 +272,7 @@ public class YouTubeActivity extends ActionBarActivity
 		overridePendingTransition(R.anim.anim_in_up, R.anim.anim_out_down);
 
 		ImageView dataCalcGraphic = (ImageView) (findViewById(R.id.data_calc_graphic));
-
+		TextView dataEstimateText = (TextView) (findViewById(R.id.dataEstimate));
 		RelativeLayout rl = (RelativeLayout) (findViewById(R.id.image_container));
 
 		if (estimate > 0.40)
@@ -322,6 +328,7 @@ public class YouTubeActivity extends ActionBarActivity
 				R.drawable.youtube_calc_graphic_corrected_small));
 		rl = (RelativeLayout) (findViewById(R.id.image_container));
 		rl.addView(dataCalcGraphicFront);
+		dataEstimateText.setText(String.valueOf(estimate));
 	}
 
 	public long getVidTime(String url)
@@ -498,14 +505,23 @@ public class YouTubeActivity extends ActionBarActivity
 				String result = getYouTubeContentDetails(params[0]);
 				PeriodFormatter formatter = ISOPeriodFormat.standard();
 				Period p = formatter.parsePeriod(result);
-				int durationSeconds = p.toStandardSeconds().getSeconds()
-						+ 60 * p.toStandardMinutes().getMinutes() + 3600 * p.toStandardHours().getHours();
-				
-				final int videoMegaMinute = 2;
-				final double videoMegaSecond = videoMegaMinute / 60;
-				double total = durationSeconds * videoMegaSecond;
-				showCalculation(total);
-				
+				Log.i("DC", String.valueOf("formatter seconds: " + p.toStandardSeconds().getSeconds()));
+				int durationSeconds = p.toStandardSeconds().getSeconds();
+
+				final double videoMegaMinute = 2;
+				final double videoMegaSecond = videoMegaMinute / 60.0;
+				final double total = durationSeconds * videoMegaSecond;
+				Log.i("DC", String.valueOf(total));
+				runOnUiThread(new Runnable()
+				{
+					@Override
+					public void run()
+					{
+						Log.i("DC", "Made it to showCalculation()");
+						showCalculation(total);
+					}
+				});
+
 			} catch (Exception e)
 			{
 				Log.e("DC", "Error After Program Start: " + e);

@@ -39,6 +39,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.techtalk4geeks.datacalc.YouTubeActivity" >
+            android:screenOrientation="portrait"
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
 
@@ -50,6 +51,7 @@
         </activity>
         <activity
             android:name="com.techtalk4geeks.datacalc.About"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_about" >
         </activity>
         <activity
