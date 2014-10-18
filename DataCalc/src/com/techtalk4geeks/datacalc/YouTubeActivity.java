@@ -10,6 +10,7 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.DecimalFormat;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -46,6 +47,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -272,10 +274,11 @@ public class YouTubeActivity extends ActionBarActivity
 		overridePendingTransition(R.anim.anim_in_up, R.anim.anim_out_down);
 
 		ImageView dataCalcGraphic = (ImageView) (findViewById(R.id.data_calc_graphic));
-		TextView dataEstimateText = (TextView) (findViewById(R.id.dataEstimate));
+		// TextView dataEstimateText = (TextView)
+		// (findViewById(R.id.dataEstimate));
 		RelativeLayout rl = (RelativeLayout) (findViewById(R.id.image_container));
 
-		if (estimate > 0.40)
+		if (estimate > 5)
 		{
 			ImageView point5 = new ImageView(this);
 			point5.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
@@ -284,7 +287,7 @@ public class YouTubeActivity extends ActionBarActivity
 					R.drawable.data_calc_graphic_point_5_small));
 			rl.addView(point5);
 		}
-		if (estimate > 0.90)
+		if (estimate > 10)
 		{
 			ImageView one = new ImageView(this);
 			one.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
@@ -293,7 +296,7 @@ public class YouTubeActivity extends ActionBarActivity
 					R.drawable.data_calc_graphic_1_small));
 			rl.addView(one);
 		}
-		if (estimate > 1.40)
+		if (estimate > 15)
 		{
 			ImageView onePointFive = new ImageView(this);
 			onePointFive.setLayoutParams(new LayoutParams(
@@ -302,7 +305,7 @@ public class YouTubeActivity extends ActionBarActivity
 					R.drawable.data_calc_graphic_1_point_5_small));
 			rl.addView(onePointFive);
 		}
-		if (estimate > 1.90)
+		if (estimate > 20)
 		{
 			ImageView onePointFive = new ImageView(this);
 			onePointFive.setLayoutParams(new LayoutParams(
@@ -311,7 +314,7 @@ public class YouTubeActivity extends ActionBarActivity
 					R.drawable.data_calc_graphic_2_small));
 			rl.addView(onePointFive);
 		}
-		if (estimate > 2.40)
+		if (estimate > 25)
 		{
 			ImageView onePointFive = new ImageView(this);
 			onePointFive.setLayoutParams(new LayoutParams(
@@ -322,13 +325,20 @@ public class YouTubeActivity extends ActionBarActivity
 		}
 
 		ImageView dataCalcGraphicFront = new ImageView(this);
+		TextView dataEstimateText = new TextView(this);
 		dataCalcGraphicFront.setLayoutParams(new LayoutParams(
 				LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 		dataCalcGraphicFront.setImageDrawable(this.getResources().getDrawable(
 				R.drawable.youtube_calc_graphic_corrected_small));
+		dataEstimateText.setLayoutParams(new LayoutParams(
+				LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+		dataEstimateText.setTextSize(40);
+		dataEstimateText.setGravity(Gravity.CENTER);
 		rl = (RelativeLayout) (findViewById(R.id.image_container));
 		rl.addView(dataCalcGraphicFront);
-		dataEstimateText.setText(String.valueOf(estimate));
+		rl.addView(dataEstimateText);
+		DecimalFormat df = new DecimalFormat("#.###");
+		dataEstimateText.setText(String.valueOf(df.format(estimate)));
 	}
 
 	public long getVidTime(String url)
@@ -505,7 +515,9 @@ public class YouTubeActivity extends ActionBarActivity
 				String result = getYouTubeContentDetails(params[0]);
 				PeriodFormatter formatter = ISOPeriodFormat.standard();
 				Period p = formatter.parsePeriod(result);
-				Log.i("DC", String.valueOf("formatter seconds: " + p.toStandardSeconds().getSeconds()));
+				Log.i("DC",
+						String.valueOf("formatter seconds: "
+								+ p.toStandardSeconds().getSeconds()));
 				int durationSeconds = p.toStandardSeconds().getSeconds();
 
 				final double videoMegaMinute = 2;
