@@ -11,6 +11,7 @@ import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -61,6 +62,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -74,6 +76,7 @@ public class YouTubeActivity extends ActionBarActivity
 	Boolean isYouTubeAuto = false;
 
 	IInAppBillingService mService;
+	ProgressBar progressBar;
 
 	ServiceConnection mServiceConn = new ServiceConnection()
 	{
@@ -96,15 +99,24 @@ public class YouTubeActivity extends ActionBarActivity
 	{
 		isYouTubeAuto = false;
 		super.onCreate(savedInstanceState);
+		
+		
 		setTitle("YouTube Calculator");
 		getActionBar().setIcon(R.drawable.youtube_calc_image);
-		setContentView(R.layout.activity_you_tube);
+		setContentView(R.layout.fragment_you_tube);
+		progressBar = (ProgressBar) findViewById(R.id.progressBar);
 		mURL = (EditText) findViewById(R.id.youtubeURL);
+		progressBar.setVisibility(0);
 
 		Intent serviceIntent = new Intent(
 				"com.android.vending.billing.InAppBillingService.BIND");
 		serviceIntent.setPackage("com.android.vending");
 		bindService(serviceIntent, mServiceConn, Context.BIND_AUTO_CREATE);
+		
+		ArrayList<String> skuList = new ArrayList<String> ();
+		skuList.add("youtubeUpgrade");
+		Bundle querySkus = new Bundle();
+//		querySkus.putStringArrayList(“youtubeUpgrade”, skuList);
 
 		// ClipboardManager clipboard = (ClipboardManager)
 		// getSystemService(Context.CLIPBOARD_SERVICE);
@@ -160,6 +172,16 @@ public class YouTubeActivity extends ActionBarActivity
 		}
 	}
 
+	@Override
+	public void onDestroy()
+	{
+		super.onDestroy();
+		if (mService != null)
+		{
+			unbindService(mServiceConn);
+		}
+	}
+
 	void handleSendText(Intent intent) throws Exception
 	{
 		isYouTubeAuto = true;
@@ -196,8 +218,9 @@ public class YouTubeActivity extends ActionBarActivity
 				Log.d("DC", youtubeURL);
 				Log.d("DC", "YouTube ID: " + sharedText.substring(substring));
 				new YouTubeAPIOperations().execute(youtubeURL);
+				progressBar.setVisibility(100);
 				Log.d("DC", "after execute");
-
+				
 				// long length = getVidTime(youtubeURL);
 				// calculate(length);
 			}
@@ -297,6 +320,7 @@ public class YouTubeActivity extends ActionBarActivity
 
 	public void showCalculation(double estimate)
 	{
+		progressBar.setVisibility(0);
 		setContentView(R.layout.activity_calc);
 		overridePendingTransition(R.anim.anim_in_up, R.anim.anim_out_down);
 
