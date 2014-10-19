@@ -46,5 +46,6 @@
     <color name="transparent">#00000000</color>
 
     <string name="title_activity_drawer_test">DrawerTest</string>
+    <string name="about_description">Are you data conscious? Don\&apos;t worry! There\&apos;s an app for that! Try the new YouTube Calc! Just open the YouTube app, tap the three dots next to any video, select share, and pick Data Calc! You\&apos;ll be given a data estimate for that video over cellular data on the spot!</string>
 
 </resources>

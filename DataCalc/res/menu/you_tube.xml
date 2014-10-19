@@ -3,18 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.techtalk4geeks.datacalc.YouTubeActivity" >
 
-    <item
+   <!--  <item
         android:id="@+id/calc"
         android:orderInCategory="100"
         android:title="@string/app_name"
         android:icon="@drawable/calculate"
-        app:showAsAction="always"/>
+        app:showAsAction="always"/> -->
     
-    <item
+   <!--  <item
         android:id="@+id/help_button"
         android:orderInCategory="100"
         android:title="@string/help"
         android:icon="@drawable/help"
-        app:showAsAction="never"/>
+        app:showAsAction="never"/> -->
 
 </menu>

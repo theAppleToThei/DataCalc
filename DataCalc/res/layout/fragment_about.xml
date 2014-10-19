@@ -8,7 +8,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.techtalk4geeks.datacalc.About$PlaceholderFragment" >
 
-    <TextView
+<!--     <TextView
         android:id="@+id/about_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -16,7 +16,7 @@
         android:layout_alignParentTop="true"
         android:text="An App By Alex Baratti"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-    
+     -->
    <!--  <TextView
         android:id="@+id/about_text"
         android:layout_width="wrap_content"

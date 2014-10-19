@@ -16,7 +16,7 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
-    <TextView
+    <!-- <TextView
         android:id="@+id/enterURL"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -33,6 +33,6 @@
         android:inputType="textUri" >
 
         <requestFocus />
-    </EditText>
+    </EditText> -->
 
 </RelativeLayout>

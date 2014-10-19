@@ -8,16 +8,19 @@
 
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/ic_launcher" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/youtube_calc_about" />
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="200sp"
+        android:paddingRight="5sp"
+        android:paddingLeft="5sp"
+        android:text="@string/about_description"
         android:textAlignment="center"
-        android:text="Data Calc"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </FrameLayout>

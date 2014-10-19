@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.techtalk4geeks.datacalc"
-    android:versionCode="2"
+    android:versionCode="3"
     android:versionName="2.0" >
 
     <uses-sdk
@@ -16,7 +16,7 @@
     <uses-permission android:name="your.namespace.permission.TEST" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="com.android.vending.BILLING" />
-    
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_color"
@@ -39,8 +39,9 @@
                 <data android:mimeType="image/*" />
             </intent-filter>
         </activity>
-        <activity android:name="com.techtalk4geeks.datacalc.YouTubeActivity" >
-            android:screenOrientation="portrait"
+        <activity
+            android:name="com.techtalk4geeks.datacalc.YouTubeActivity"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
 
@@ -48,12 +49,11 @@
 
                 <data android:mimeType="text/plain" />
             </intent-filter>
-            android:label="@string/title_activity_you_tube" >
         </activity>
         <activity
             android:name="com.techtalk4geeks.datacalc.About"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_about" >
+            android:label="@string/title_activity_about"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.techtalk4geeks.datacalc.CalcActivity"
@@ -62,7 +62,8 @@
         </activity>
         <activity
             android:name="com.techtalk4geeks.datacalc.DrawerTest"
-            android:label="@string/title_activity_drawer_test" >
+            android:label="@string/title_activity_drawer_test"
+            android:screenOrientation="portrait" >
         </activity>
     </application>
 

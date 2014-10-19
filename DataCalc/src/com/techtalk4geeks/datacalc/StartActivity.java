@@ -138,16 +138,19 @@ public class StartActivity extends Activity
 		}
 		if (id == R.id.youtube_calc)
 		{
-			Intent youtubeCalc = new Intent(this, YouTubeActivity.class);
-			startActivity(youtubeCalc);
+//			Intent youtubeCalc = new Intent(this, YouTubeActivity.class);
+			Intent about = new Intent(this, About.class);
+			YouTubeActivity ya = new YouTubeActivity();
+			startActivity(about);
 			overridePendingTransition(R.anim.anim_in_up, R.anim.anim_out_up);
+			setTitle("YouTube Calc");
 			return true;
 		}
-		if (id == R.id.help)
-		{
-			
-			return true;
-		}
+//		if (id == R.id.help)
+//		{
+//			
+//			return true;
+//		}
 //		if (id == R.id.about)
 //		{
 //			Intent about = new Intent(this, About.class);
