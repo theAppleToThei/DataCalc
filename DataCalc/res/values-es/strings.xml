@@ -1,0 +1,17 @@
+<resources>
+
+    <string name="action_settings">Ajustes</string>
+    <string name="app_name">Data Calculadora</string>
+    <string name="emailNoAttach">Correos Electrónicos Enviados Sin Archivos Adjuntos</string>
+    <string name="enterURL">"Entra un YouTube URL "</string>
+    <string name="hello_world">¡Hola Mundo!</string>
+    <string name="help">Ayuda</string>
+    <string name="hotspot">Punto de Acceso Móvil</string>
+    <string name="laptop">Computadora</string>
+    <string name="smartphone">Teléfono Inteligente</string>
+    <string name="title_activity_about">Acerca</string>
+    <string name="title_section2">YouTube Data Calculadora</string>
+    <string name="title_section3">Ayuda</string>
+    <string name="youtubedatacalc">YouTube Data Calculadora</string>
+
+</resources>

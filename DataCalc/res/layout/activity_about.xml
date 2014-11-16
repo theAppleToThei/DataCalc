@@ -16,11 +16,35 @@
         android:id="@+id/textView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="200sp"
+        android:paddingTop="190sp"
         android:paddingRight="5sp"
         android:paddingLeft="5sp"
+        android:textSize="20sp"
         android:text="@string/about_description"
         android:textAlignment="center"
         android:textAppearance="?android:attr/textAppearanceLarge" />
+    
+     <!-- <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="320sp"
+        android:textSize="15sp"
+        android:text="Or you can paste a YouTube URL below..."
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:paddingTop="350sp"
+        android:hint="Enter a YouTube URL"
+        android:inputType="text" >
+
+        <requestFocus />
+    </EditText> -->
+
+   
 
 </FrameLayout>

@@ -7,6 +7,10 @@ import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.app.ActionBar.LayoutParams;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -36,15 +40,24 @@ public class CalcActivity extends ActionBarActivity
 		DecimalFormat df = new DecimalFormat("#.##");
 		estimate.setText((df.format(myTotal)));
 		RelativeLayout rl = (RelativeLayout) (findViewById(R.id.image_container));
-		if (myTotal > 0.45)
+		if (myTotal <= 0.5)
 		{
 			ImageView dataCalcGraphic = (ImageView) (findViewById(R.id.data_calc_graphic));
 
 			ImageView point5 = new ImageView(this);
 			point5.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
 					LayoutParams.MATCH_PARENT));
-			point5.setImageDrawable(this.getResources().getDrawable(
-					R.drawable.data_calc_graphic_point_5_small));
+			Drawable arch5 = this.getResources().getDrawable(
+					R.drawable.data_calc_graphic_point_5_small);
+			// TODO Draw transparent arch over arch5
+			double drawOver = (1 - myTotal / 0.5) * 45;
+			// TODO Get canvas object
+			Bitmap five = Bitmap.createBitmap(arch5.getMinimumWidth(), arch5.getMinimumHeight(), Bitmap.Config.ALPHA_8);
+		    Canvas c = new Canvas(five);
+			// TODO Draw arch5 onto canvas
+			// TODO Draw arch of transparent pixels onto canvas
+			// TODO Get modified arch back out of canvas
+			point5.setImageDrawable(arch5);
 			rl.addView(point5);
 			estimate.bringToFront();
 

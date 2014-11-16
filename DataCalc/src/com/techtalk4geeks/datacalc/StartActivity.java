@@ -235,6 +235,8 @@ public class StartActivity extends Activity
 		TextView dataEstimatePhoto = (TextView) findViewById(R.id.dataEstimatePhoto);
 		dataEstimatePhoto.setText(String.valueOf(l));
 	}
+	
+	
 
 }
 
