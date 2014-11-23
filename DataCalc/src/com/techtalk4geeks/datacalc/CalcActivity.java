@@ -10,6 +10,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -50,12 +52,21 @@ public class CalcActivity extends ActionBarActivity
 			Drawable arch5 = this.getResources().getDrawable(
 					R.drawable.data_calc_graphic_point_5_small);
 			// TODO Draw transparent arch over arch5
-			double drawOver = (1 - myTotal / 0.5) * 45;
+			float drawOver = (float) (1 - myTotal / 0.5) * 45;
 			// TODO Get canvas object
-			Bitmap five = Bitmap.createBitmap(arch5.getMinimumWidth(), arch5.getMinimumHeight(), Bitmap.Config.ALPHA_8);
-		    Canvas c = new Canvas(five);
+			Bitmap five = Bitmap.createBitmap(arch5.getMinimumWidth(),
+					arch5.getMinimumHeight(), Bitmap.Config.ALPHA_8);
+			Canvas c = new Canvas(five);
 			// TODO Draw arch5 onto canvas
 			// TODO Draw arch of transparent pixels onto canvas
+			int centerX = dataCalcGraphic.getWidth() / 2;
+			int centerY = dataCalcGraphic.getHeight() / 2;
+			int radius = centerX;
+			RectF oval = new RectF(centerX - radius, centerY - radius, centerX
+					+ radius, centerY + radius);
+			Paint paint = new Paint();
+			paint.setColor(0); // Transparent
+			c.drawArc(oval, 45, drawOver, true, paint);
 			// TODO Get modified arch back out of canvas
 			point5.setImageDrawable(arch5);
 			rl.addView(point5);
