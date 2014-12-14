@@ -3,6 +3,7 @@ package com.techtalk4geeks.datacalc;
 import android.support.v7.app.ActionBarActivity;
 import android.app.ActionBar.LayoutParams;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -52,10 +53,35 @@ public class TestCanvas extends ActionBarActivity
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
-		if (id == R.id.action_settings)
+		if (id == R.id.up)
 		{
+			Intent about = new Intent(this, About.class);
+			startActivity(about);
+			overridePendingTransition(R.anim.anim_in_up, R.anim.anim_out_up);
 			return true;
 		}
+		if (id == R.id.down)
+		{
+			Intent about = new Intent(this, About.class);
+			startActivity(about);
+			overridePendingTransition(R.anim.anim_in_down, R.anim.anim_out_down);
+			return true;
+		}
+		if (id == R.id.right)
+		{
+			Intent about = new Intent(this, About.class);
+			startActivity(about);
+			overridePendingTransition(R.anim.anim_in_right, R.anim.anim_out_right);
+			return true;
+		}
+		if (id == R.id.flip)
+		{
+			Intent about = new Intent(this, About.class);
+			startActivity(about);
+			overridePendingTransition(R.anim.anim_in_flip, R.anim.anim_out_flip);
+			return true;
+		}
+		
 		return super.onOptionsItemSelected(item);
 	}
 }

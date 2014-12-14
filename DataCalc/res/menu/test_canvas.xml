@@ -4,9 +4,27 @@
     tools:context="com.techtalk4geeks.datacalc.TestCanvas" >
 
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/up"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="Up Animation"
+        app:showAsAction="never"/>
+    
+    <item
+        android:id="@+id/down"
+        android:orderInCategory="100"
+        android:title="Down Animation"
+        app:showAsAction="never"/>
+    
+    <item
+        android:id="@+id/right"
+        android:orderInCategory="100"
+        android:title="Right Animation"
+        app:showAsAction="never"/>
+    
+    <item
+        android:id="@+id/flip"
+        android:orderInCategory="100"
+        android:title="Flip Animation"
         app:showAsAction="never"/>
 
 </menu>
