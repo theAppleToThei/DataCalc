@@ -55,30 +55,33 @@ public class TestCanvas extends ActionBarActivity
 		int id = item.getItemId();
 		if (id == R.id.up)
 		{
-			Intent about = new Intent(this, About.class);
-			startActivity(about);
+			startActivity(getIntent());
 			overridePendingTransition(R.anim.anim_in_up, R.anim.anim_out_up);
 			return true;
 		}
 		if (id == R.id.down)
 		{
-			Intent about = new Intent(this, About.class);
-			startActivity(about);
+			startActivity(getIntent());
 			overridePendingTransition(R.anim.anim_in_down, R.anim.anim_out_down);
 			return true;
 		}
 		if (id == R.id.right)
 		{
-			Intent about = new Intent(this, About.class);
-			startActivity(about);
+			startActivity(getIntent());
 			overridePendingTransition(R.anim.anim_in_right, R.anim.anim_out_right);
 			return true;
 		}
 		if (id == R.id.flip)
 		{
-			Intent about = new Intent(this, About.class);
-			startActivity(about);
+			startActivity(getIntent());
 			overridePendingTransition(R.anim.anim_in_flip, R.anim.anim_out_flip);
+			return true;
+		}
+		if (id == R.id.testCalculation)
+		{
+			Intent testCalc = new Intent(this, TestCalcActivity.class);
+			startActivity(testCalc);
+			overridePendingTransition(R.anim.anim_in_up, R.anim.anim_out_down);
 			return true;
 		}
 		

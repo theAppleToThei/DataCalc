@@ -27,4 +27,9 @@
         android:title="Flip Animation"
         app:showAsAction="never"/>
 
+    <item
+        android:id="@+id/testCalculation"
+        android:orderInCategory="100"
+        android:title="Test Calculation Graphic"
+        app:showAsAction="never"/>
 </menu>

@@ -64,6 +64,10 @@
             android:name=".TestCanvas"
             android:label="@string/title_activity_test_canvas" >
         </activity>
+        <activity
+            android:name=".TestCalcActivity"
+            android:label="@string/title_activity_test_calc" >
+        </activity>
     </application>
 
 </manifest>
