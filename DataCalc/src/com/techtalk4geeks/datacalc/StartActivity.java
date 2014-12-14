@@ -146,6 +146,15 @@ public class StartActivity extends Activity
 			setTitle("YouTube Calc");
 			return true;
 		}
+		if (id == R.id.testCanvas)
+		{
+//			Intent youtubeCalc = new Intent(this, YouTubeActivity.class);
+			Intent testCanvas = new Intent(this, TestCanvas.class);
+			startActivity(testCanvas);
+			overridePendingTransition(R.anim.anim_in_up, R.anim.anim_out_up);
+			setTitle("Test Canvas");
+			return true;
+		}
 //		if (id == R.id.help)
 //		{
 //			

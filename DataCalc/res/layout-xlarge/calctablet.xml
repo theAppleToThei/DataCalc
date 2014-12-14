@@ -52,7 +52,7 @@
         android:id="@+id/fillout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Fill Out As Much As You Can Of The Following (It Doesn't Have To Be Exact):"
+        android:text="Estimate Any of the Following Values"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TableRow

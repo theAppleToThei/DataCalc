@@ -60,6 +60,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -103,18 +104,11 @@ public class YouTubeActivity extends ActionBarActivity
 		setTitle("YouTube Calculator");
 		getActionBar().setIcon(R.drawable.youtube_calc_image);
 		setContentView(R.layout.activity_you_tube);
+		
 //		progressBar = (ProgressBar) findViewById(R.id.progressBar);
 //		mURL = (EditText) findViewById(R.id.youtubeURL);
 //		progressBar.setVisibility(0);
 
-		Intent serviceIntent = new Intent(
-				"com.android.vending.billing.InAppBillingService.BIND");
-		serviceIntent.setPackage("com.android.vending");
-		bindService(serviceIntent, mServiceConn, Context.BIND_AUTO_CREATE);
-		
-		ArrayList<String> skuList = new ArrayList<String> ();
-		skuList.add("youtubeUpgrade");
-		Bundle querySkus = new Bundle();
 //		querySkus.putStringArrayList(“youtubeUpgrade”, skuList);
 
 		// ClipboardManager clipboard = (ClipboardManager)
@@ -169,6 +163,8 @@ public class YouTubeActivity extends ActionBarActivity
 				}
 			}
 		}
+		
+		
 	}
 
 	@Override
@@ -357,6 +353,9 @@ public class YouTubeActivity extends ActionBarActivity
 	{
 //		progressBar.setVisibility(0);
 		setContentView(R.layout.activity_calc);
+		
+		Button planButton = (Button) findViewById(R.id.planButton);
+		planButton.setVisibility(0);
 		overridePendingTransition(R.anim.anim_in_up, R.anim.anim_out_down);
 
 		ImageView dataCalcGraphic = (ImageView) (findViewById(R.id.data_calc_graphic));

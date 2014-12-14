@@ -1,0 +1,30 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.techtalk4geeks.datacalc.CalcActivity"
+    tools:ignore="MergeRootFrame" >
+
+    <RelativeLayout
+        android:id="@+id/image_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <ImageView
+            android:id="@+id/data_calc_graphic"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/data_calc_graphic_back_small" />
+
+        <TextView
+            android:id="@+id/dataEstimate"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/dataEstimate"
+            android:textSize="40sp" />
+    </RelativeLayout>
+
+</LinearLayout>

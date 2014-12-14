@@ -8,11 +8,6 @@
         android:minSdkVersion="11"
         android:targetSdkVersion="19" />
 
-    <permission
-        android:name="permission.TEST"
-        android:label="Monitor Data Usage"
-        android:protectionLevel="normal" />
-
     <uses-permission android:name="your.namespace.permission.TEST" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -24,7 +19,7 @@
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.techtalk4geeks.datacalc.StartActivity"
+            android:name=".StartActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,7 +35,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.techtalk4geeks.datacalc.YouTubeActivity"
+            android:name=".YouTubeActivity"
             android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
@@ -51,19 +46,23 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.techtalk4geeks.datacalc.About"
+            android:name=".About"
             android:label="@string/title_activity_about"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.techtalk4geeks.datacalc.CalcActivity"
+            android:name=".CalcActivity"
             android:label="@string/title_activity_calc"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.techtalk4geeks.datacalc.DrawerTest"
+            android:name=".DrawerTest"
             android:label="@string/title_activity_drawer_test"
             android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".TestCanvas"
+            android:label="@string/title_activity_test_canvas" >
         </activity>
     </application>
 

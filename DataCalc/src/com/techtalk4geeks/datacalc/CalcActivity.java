@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
@@ -19,6 +20,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -36,6 +39,8 @@ public class CalcActivity extends ActionBarActivity
 		i.getExtras();
 		double myTotal = i.getDoubleExtra("total", 0);
 		setContentView(R.layout.activity_calc);
+		Button planButton = (Button) findViewById(R.id.planButton);
+		planButton.setVisibility(0); //TODO: Change value when data rates are found
 		setTitle("Data Calc");
 		TextView estimate = (TextView) findViewById(R.id.dataEstimate);
 		estimate.bringToFront();
@@ -44,7 +49,7 @@ public class CalcActivity extends ActionBarActivity
 		RelativeLayout rl = (RelativeLayout) (findViewById(R.id.image_container));
 		if (myTotal <= 0.5)
 		{
-			ImageView dataCalcGraphic = (ImageView) (findViewById(R.id.data_calc_graphic));
+			final ImageView dataCalcGraphic = (ImageView) (findViewById(R.id.data_calc_graphic));
 
 			ImageView point5 = new ImageView(this);
 			point5.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
@@ -52,20 +57,34 @@ public class CalcActivity extends ActionBarActivity
 			Drawable arch5 = this.getResources().getDrawable(
 					R.drawable.data_calc_graphic_point_5_small);
 			// TODO Draw transparent arch over arch5
-			float drawOver = (float) (1 - myTotal / 0.5) * 45;
+//			float drawOver = (float) (1 - myTotal / 0.5) * 45;
+			float drawOver = 39;
 			// TODO Get canvas object
 			Bitmap five = Bitmap.createBitmap(arch5.getMinimumWidth(),
 					arch5.getMinimumHeight(), Bitmap.Config.ALPHA_8);
 			Canvas c = new Canvas(five);
 			// TODO Draw arch5 onto canvas
 			// TODO Draw arch of transparent pixels onto canvas
-			int centerX = dataCalcGraphic.getWidth() / 2;
-			int centerY = dataCalcGraphic.getHeight() / 2;
-			int radius = centerX;
+			
+			int radius = five.getWidth() / 2;
+			
+			dataCalcGraphic.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+
+		        @Override
+		        public void onGlobalLayout() {
+		            // Ensure you call it only once :
+		            dataCalcGraphic.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+
+		            // Here you can get the size :)
+		        }
+		    });
+			
+			int centerX = (int) (dataCalcGraphic.getX() + radius);
+			int centerY = (int) (dataCalcGraphic.getY() + radius);
 			RectF oval = new RectF(centerX - radius, centerY - radius, centerX
 					+ radius, centerY + radius);
 			Paint paint = new Paint();
-			paint.setColor(0); // Transparent
+			paint.setColor(Color.RED); // Transparent
 			c.drawArc(oval, 45, drawOver, true, paint);
 			// TODO Get modified arch back out of canvas
 			point5.setImageDrawable(arch5);
@@ -216,6 +235,17 @@ public class CalcActivity extends ActionBarActivity
 			rl = (RelativeLayout) (findViewById(R.id.image_container));
 			rl.addView(dataCalcGraphicFront);
 		}
+		
+		planButton.setOnClickListener(new View.OnClickListener()
+		{
+
+			@Override
+			public void onClick(View v)
+			{
+				//TODO: Add carrier stuff
+			}
+		});
+
 
 		estimate.bringToFront();
 		if (savedInstanceState == null)
@@ -224,7 +254,11 @@ public class CalcActivity extends ActionBarActivity
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
 	}
-
+	
+	public Carrier getATTRate(double estimate) {
+		return new Carrier("AT&T", "N/A", "N/A");
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
