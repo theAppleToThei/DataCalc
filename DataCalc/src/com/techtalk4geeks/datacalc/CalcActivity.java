@@ -40,14 +40,15 @@ public class CalcActivity extends ActionBarActivity
 		double myTotal = i.getDoubleExtra("total", 0);
 		setContentView(R.layout.activity_calc);
 		Button planButton = (Button) findViewById(R.id.planButton);
-		planButton.setVisibility(0); //TODO: Change value when data rates are found
+		planButton.setVisibility(0); // TODO: Change value when data rates are
+										// found
 		setTitle("Data Calc");
 		TextView estimate = (TextView) findViewById(R.id.dataEstimate);
 		estimate.bringToFront();
 		DecimalFormat df = new DecimalFormat("#.##");
 		estimate.setText((df.format(myTotal)));
 		RelativeLayout rl = (RelativeLayout) (findViewById(R.id.image_container));
-		if (myTotal <= 0.5)
+		if (myTotal <= 0.5 && myTotal < 1)
 		{
 			final ImageView dataCalcGraphic = (ImageView) (findViewById(R.id.data_calc_graphic));
 
@@ -57,7 +58,7 @@ public class CalcActivity extends ActionBarActivity
 			Drawable arch5 = this.getResources().getDrawable(
 					R.drawable.data_calc_graphic_point_5_small);
 			// TODO Draw transparent arch over arch5
-//			float drawOver = (float) (1 - myTotal / 0.5) * 45;
+			// float drawOver = (float) (1 - myTotal / 0.5) * 45;
 			float drawOver = 39;
 			// TODO Get canvas object
 			Bitmap five = Bitmap.createBitmap(arch5.getMinimumWidth(),
@@ -65,20 +66,24 @@ public class CalcActivity extends ActionBarActivity
 			Canvas c = new Canvas(five);
 			// TODO Draw arch5 onto canvas
 			// TODO Draw arch of transparent pixels onto canvas
-			
+
 			int radius = five.getWidth() / 2;
-			
-			dataCalcGraphic.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
 
-		        @Override
-		        public void onGlobalLayout() {
-		            // Ensure you call it only once :
-		            dataCalcGraphic.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+			dataCalcGraphic.getViewTreeObserver().addOnGlobalLayoutListener(
+					new ViewTreeObserver.OnGlobalLayoutListener()
+					{
 
-		            // Here you can get the size :)
-		        }
-		    });
-			
+						@Override
+						public void onGlobalLayout()
+						{
+							// Ensure you call it only once :
+							dataCalcGraphic.getViewTreeObserver()
+									.removeGlobalOnLayoutListener(this);
+
+							// Here you can get the size :)
+						}
+					});
+
 			int centerX = (int) (dataCalcGraphic.getX() + radius);
 			int centerY = (int) (dataCalcGraphic.getY() + radius);
 			RectF oval = new RectF(centerX - radius, centerY - radius, centerX
@@ -98,17 +103,7 @@ public class CalcActivity extends ActionBarActivity
 					.getDrawable(R.drawable.data_calc_graphic_front_small));
 			rl = (RelativeLayout) (findViewById(R.id.image_container));
 			rl.addView(dataCalcGraphicFront);
-		} else
-		{
-			ImageView dataCalcGraphicFront = new ImageView(this);
-			dataCalcGraphicFront.setLayoutParams(new LayoutParams(
-					LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-			dataCalcGraphicFront.setImageDrawable(this.getResources()
-					.getDrawable(R.drawable.data_calc_graphic_front_small));
-			rl = (RelativeLayout) (findViewById(R.id.image_container));
-			rl.addView(dataCalcGraphicFront);
-		}
-		if (myTotal > 1)
+		} else if (myTotal >= 1 && myTotal < 1.5)
 		{
 			ImageView dataCalcGraphic = (ImageView) (findViewById(R.id.data_calc_graphic));
 
@@ -126,8 +121,7 @@ public class CalcActivity extends ActionBarActivity
 					.getDrawable(R.drawable.data_calc_graphic_front_small));
 			rl = (RelativeLayout) (findViewById(R.id.image_container));
 			rl.addView(dataCalcGraphicFront);
-		}
-		if (myTotal > 1.5)
+		} else if (myTotal >= 1.5 && myTotal < 2)
 		{
 			ImageView dataCalcGraphic = (ImageView) (findViewById(R.id.data_calc_graphic));
 
@@ -144,8 +138,7 @@ public class CalcActivity extends ActionBarActivity
 					.getDrawable(R.drawable.data_calc_graphic_front_small));
 			rl = (RelativeLayout) (findViewById(R.id.image_container));
 			rl.addView(dataCalcGraphicFront);
-		}
-		if (myTotal > 2)
+		} else if (myTotal >= 2 && myTotal < 2.5)
 		{
 			ImageView dataCalcGraphic = (ImageView) (findViewById(R.id.data_calc_graphic));
 
@@ -162,8 +155,7 @@ public class CalcActivity extends ActionBarActivity
 					.getDrawable(R.drawable.data_calc_graphic_front_small));
 			rl = (RelativeLayout) (findViewById(R.id.image_container));
 			rl.addView(dataCalcGraphicFront);
-		}
-		if (myTotal > 2.5)
+		} else if (myTotal >= 2.5 && myTotal < 3)
 		{
 			ImageView dataCalcGraphic = (ImageView) (findViewById(R.id.data_calc_graphic));
 
@@ -180,8 +172,7 @@ public class CalcActivity extends ActionBarActivity
 					.getDrawable(R.drawable.data_calc_graphic_front_small));
 			rl = (RelativeLayout) (findViewById(R.id.image_container));
 			rl.addView(dataCalcGraphicFront);
-		}
-		if (myTotal > 3)
+		} else if (myTotal >= 3 && myTotal < 3.5)
 		{
 			ImageView dataCalcGraphic = (ImageView) (findViewById(R.id.data_calc_graphic));
 
@@ -198,8 +189,7 @@ public class CalcActivity extends ActionBarActivity
 					.getDrawable(R.drawable.data_calc_graphic_front_small));
 			rl = (RelativeLayout) (findViewById(R.id.image_container));
 			rl.addView(dataCalcGraphicFront);
-		}
-		if (myTotal > 3.5)
+		} else if (myTotal >= 3.5 && myTotal < 4)
 		{
 			ImageView dataCalcGraphic = (ImageView) (findViewById(R.id.data_calc_graphic));
 
@@ -216,8 +206,7 @@ public class CalcActivity extends ActionBarActivity
 					.getDrawable(R.drawable.data_calc_graphic_front_small));
 			rl = (RelativeLayout) (findViewById(R.id.image_container));
 			rl.addView(dataCalcGraphicFront);
-		}
-		if (myTotal > 4)
+		} else if (myTotal >= 4)
 		{
 			ImageView dataCalcGraphic = (ImageView) (findViewById(R.id.data_calc_graphic));
 
@@ -234,18 +223,26 @@ public class CalcActivity extends ActionBarActivity
 					.getDrawable(R.drawable.data_calc_graphic_front_small));
 			rl = (RelativeLayout) (findViewById(R.id.image_container));
 			rl.addView(dataCalcGraphicFront);
+		} else
+		{
+			ImageView dataCalcGraphicFront = new ImageView(this);
+			dataCalcGraphicFront.setLayoutParams(new LayoutParams(
+					LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+			dataCalcGraphicFront.setImageDrawable(this.getResources()
+					.getDrawable(R.drawable.data_calc_graphic_front_small));
+			rl = (RelativeLayout) (findViewById(R.id.image_container));
+			rl.addView(dataCalcGraphicFront);
 		}
-		
+
 		planButton.setOnClickListener(new View.OnClickListener()
 		{
 
 			@Override
 			public void onClick(View v)
 			{
-				//TODO: Add carrier stuff
+				// TODO: Add carrier stuff
 			}
 		});
-
 
 		estimate.bringToFront();
 		if (savedInstanceState == null)
@@ -254,11 +251,12 @@ public class CalcActivity extends ActionBarActivity
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
 	}
-	
-	public Carrier getATTRate(double estimate) {
+
+	public Carrier getATTRate(double estimate)
+	{
 		return new Carrier("AT&T", "N/A", "N/A");
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{

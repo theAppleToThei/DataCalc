@@ -30,6 +30,7 @@ public class TestCanvasView extends View
 		int centerX = (int) (360);
 		int centerY = (int) (640);
 		RectF oval = new RectF(centerX, centerY, centerX + 200, centerY + 200);
+
 		paint.setColor(Color.GREEN);
 		canvas.drawArc(oval, 0, 45, true, paint);
 		paint.setColor(Color.RED);
@@ -52,11 +53,12 @@ public class TestCanvasView extends View
 		canvas.drawText("Something is working!", 50, 295, paint);
 		paint.setColor(Color.BLACK);
 		canvas.drawText("Something is working!", 50, 335, paint);
-		
+
 		canvas.drawCircle(50, 500, 5, paint);
 		canvas.drawCircle(65, 500, 10, paint);
 		canvas.drawCircle(90, 500, 15, paint);
 		canvas.drawCircle(120, 500, 20, paint);
+		
 		canvas.save();
 	}
 
