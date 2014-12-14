@@ -34,8 +34,13 @@ public class TestCanvasView extends View
 		paint.setColor(Color.RED); // Transparent
 		canvas.drawArc(oval, 45, drawOver, true, paint);
 
+		paint.setTextSize(45);
 		paint.setColor(Color.RED);
 		canvas.drawText("Something is working!", 50, 85, paint);
+		paint.setColor(Color.YELLOW);
+		canvas.drawText("Something is working!", 50, 75, paint);
+		paint.setColor(Color.GREEN);
+		canvas.drawText("Something is working!", 50, 65, paint);
 		canvas.save();
 	}
 
