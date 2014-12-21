@@ -49,5 +49,6 @@
     <string name="about_description">Are you data conscious? Don\&apos;t worry! There\&apos;s an app for that! Try the new YouTube Calc! Just open the YouTube app, tap the three dots next to any video, select share, and pick Data Calc! You\&apos;ll be given a data estimate for that video over cellular data on the spot!</string>
     <string name="title_activity_test_canvas">TestCanvas</string>
     <string name="title_activity_test_calc">TestCalcActivity</string>
+    <string name="title_activity_test_canvas_calc_view">TestCanvasCalcView</string>
 
 </resources>

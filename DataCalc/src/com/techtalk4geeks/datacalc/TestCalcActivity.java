@@ -1,14 +1,27 @@
 package com.techtalk4geeks.datacalc;
 
+import java.text.DecimalFormat;
+
 import android.support.v7.app.ActionBarActivity;
 import android.text.InputType;
 import android.app.AlertDialog;
+import android.app.ActionBar.LayoutParams;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.RectF;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewTreeObserver;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 public class TestCalcActivity extends ActionBarActivity
 {
@@ -26,13 +39,21 @@ public class TestCalcActivity extends ActionBarActivity
 		// Set an EditText view to get user input
 		final EditText input = new EditText(this);
 		alert.setView(input);
-		input.setInputType(InputType.TYPE_CLASS_NUMBER);
+		input.setInputType(InputType.TYPE_NUMBER_FLAG_SIGNED);
 
 		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener()
 		{
 			public void onClick(DialogInterface dialog, int whichButton)
 			{
-				String value = input.getText().toString();
+				double valueNum;
+				if (input.getText().length() != 0)
+				{
+					String value = input.getText().toString();
+					valueNum = Double.parseDouble(value);
+				} else {
+					valueNum = 0.5;
+				}
+				renderGaugeGraphic(valueNum);
 			}
 		});
 
@@ -67,5 +88,220 @@ public class TestCalcActivity extends ActionBarActivity
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	public void renderGaugeGraphic(double myTotal)
+	{
+		TextView estimate = (TextView) findViewById(R.id.dataEstimateTest);
+		estimate.bringToFront();
+		DecimalFormat df = new DecimalFormat("#.##");
+		estimate.setText((df.format(myTotal)));
+		RelativeLayout rl = (RelativeLayout) (findViewById(R.id.image_container_test));
+		if (myTotal <= 0.5)
+		{
+			final ImageView dataCalcGraphic = (ImageView) (findViewById(R.id.data_calc_graphic));
+
+			ImageView point5 = new ImageView(this);
+			point5.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
+					LayoutParams.MATCH_PARENT));
+			Drawable arch5 = this.getResources().getDrawable(
+					R.drawable.data_calc_graphic_point_5_small);
+			// TODO Draw transparent arch over arch5
+			// float drawOver = (float) (1 - myTotal / 0.5) * 45;
+			float drawOver = 39;
+			// TODO Get canvas object
+			Bitmap five = Bitmap.createBitmap(arch5.getMinimumWidth(),
+					arch5.getMinimumHeight(), Bitmap.Config.ALPHA_8);
+			Canvas c = new Canvas(five);
+			// TODO Draw arch5 onto canvas
+			// TODO Draw arch of transparent pixels onto canvas
+
+			int radius = five.getWidth() / 2;
+
+			dataCalcGraphic.getViewTreeObserver().addOnGlobalLayoutListener(
+					new ViewTreeObserver.OnGlobalLayoutListener()
+					{
+
+						@Override
+						public void onGlobalLayout()
+						{
+							// Ensure you call it only once :
+							dataCalcGraphic.getViewTreeObserver()
+									.removeGlobalOnLayoutListener(this);
+
+							// Here you can get the size :)
+						}
+					});
+
+			int centerX = (int) (dataCalcGraphic.getX() + radius);
+			int centerY = (int) (dataCalcGraphic.getY() + radius);
+			RectF oval = new RectF(centerX - radius, centerY - radius, centerX
+					+ radius, centerY + radius);
+			Paint paint = new Paint();
+			paint.setColor(Color.RED); // Transparent
+			c.drawArc(oval, 45, drawOver, true, paint);
+			// TODO Get modified arch back out of canvas
+			point5.setImageDrawable(arch5);
+			rl.addView(point5);
+			estimate.bringToFront();
+
+			TestCanvasCalcView tccv = new TestCanvasCalcView(this);
+			tccv.setLayoutParams(new LayoutParams(
+					LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+			rl.addView(tccv);
+
+			ImageView dataCalcGraphicFront = new ImageView(this);
+			dataCalcGraphicFront.setLayoutParams(new LayoutParams(
+					LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+			dataCalcGraphicFront.setImageDrawable(this.getResources()
+					.getDrawable(R.drawable.data_calc_graphic_front_small));
+			rl.addView(dataCalcGraphicFront);
+			
+			ImageView dataCalcGraphicTop = new ImageView(this);
+			dataCalcGraphicTop.setLayoutParams(new LayoutParams(
+					LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+			dataCalcGraphicTop.setImageDrawable(this.getResources()
+					.getDrawable(R.drawable.data_calc_graphic_top_small));
+			rl.addView(dataCalcGraphicTop);
+			
+			
+		} 
+//		else
+//		{
+//			ImageView dataCalcGraphicFront = new ImageView(this);
+//			dataCalcGraphicFront.setLayoutParams(new LayoutParams(
+//					LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+//			dataCalcGraphicFront.setImageDrawable(this.getResources()
+//					.getDrawable(R.drawable.data_calc_graphic_front_small));
+//			rl = (RelativeLayout) (findViewById(R.id.image_container_test));
+//			rl.addView(dataCalcGraphicFront);
+//		}
+//		if (myTotal > 1)
+//		{
+//			ImageView dataCalcGraphic = (ImageView) (findViewById(R.id.data_calc_graphic));
+//
+//			ImageView one = new ImageView(this);
+//			one.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
+//					LayoutParams.MATCH_PARENT));
+//			one.setImageDrawable(this.getResources().getDrawable(
+//					R.drawable.data_calc_graphic_1_small));
+//			rl.addView(one);
+//			// dataCalcGraphic.bringToFront();
+//			ImageView dataCalcGraphicFront = new ImageView(this);
+//			dataCalcGraphicFront.setLayoutParams(new LayoutParams(
+//					LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+//			dataCalcGraphicFront.setImageDrawable(this.getResources()
+//					.getDrawable(R.drawable.data_calc_graphic_front_small));
+//			rl = (RelativeLayout) (findViewById(R.id.image_container_test));
+//			rl.addView(dataCalcGraphicFront);
+//		}
+//		if (myTotal > 1.5)
+//		{
+//			ImageView dataCalcGraphic = (ImageView) (findViewById(R.id.data_calc_graphic));
+//
+//			ImageView onePointFive = new ImageView(this);
+//			onePointFive.setLayoutParams(new LayoutParams(
+//					LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+//			onePointFive.setImageDrawable(this.getResources().getDrawable(
+//					R.drawable.data_calc_graphic_1_point_5_small));
+//			rl.addView(onePointFive);
+//			ImageView dataCalcGraphicFront = new ImageView(this);
+//			dataCalcGraphicFront.setLayoutParams(new LayoutParams(
+//					LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+//			dataCalcGraphicFront.setImageDrawable(this.getResources()
+//					.getDrawable(R.drawable.data_calc_graphic_front_small));
+//			rl = (RelativeLayout) (findViewById(R.id.image_container_test));
+//			rl.addView(dataCalcGraphicFront);
+//		}
+//		if (myTotal > 2)
+//		{
+//			ImageView dataCalcGraphic = (ImageView) (findViewById(R.id.data_calc_graphic));
+//
+//			ImageView onePointFive = new ImageView(this);
+//			onePointFive.setLayoutParams(new LayoutParams(
+//					LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+//			onePointFive.setImageDrawable(this.getResources().getDrawable(
+//					R.drawable.data_calc_graphic_2_small));
+//			rl.addView(onePointFive);
+//			ImageView dataCalcGraphicFront = new ImageView(this);
+//			dataCalcGraphicFront.setLayoutParams(new LayoutParams(
+//					LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+//			dataCalcGraphicFront.setImageDrawable(this.getResources()
+//					.getDrawable(R.drawable.data_calc_graphic_front_small));
+//			rl = (RelativeLayout) (findViewById(R.id.image_container_test));
+//			rl.addView(dataCalcGraphicFront);
+//		}
+//		if (myTotal > 2.5)
+//		{
+//			ImageView dataCalcGraphic = (ImageView) (findViewById(R.id.data_calc_graphic));
+//
+//			ImageView onePointFive = new ImageView(this);
+//			onePointFive.setLayoutParams(new LayoutParams(
+//					LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+//			onePointFive.setImageDrawable(this.getResources().getDrawable(
+//					R.drawable.data_calc_graphic_2_point_5_small));
+//			rl.addView(onePointFive);
+//			ImageView dataCalcGraphicFront = new ImageView(this);
+//			dataCalcGraphicFront.setLayoutParams(new LayoutParams(
+//					LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+//			dataCalcGraphicFront.setImageDrawable(this.getResources()
+//					.getDrawable(R.drawable.data_calc_graphic_front_small));
+//			rl = (RelativeLayout) (findViewById(R.id.image_container_test));
+//			rl.addView(dataCalcGraphicFront);
+//		}
+//		if (myTotal > 3)
+//		{
+//			ImageView dataCalcGraphic = (ImageView) (findViewById(R.id.data_calc_graphic));
+//
+//			ImageView onePointFive = new ImageView(this);
+//			onePointFive.setLayoutParams(new LayoutParams(
+//					LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+//			onePointFive.setImageDrawable(this.getResources().getDrawable(
+//					R.drawable.data_calc_graphic_3_small));
+//			rl.addView(onePointFive);
+//			ImageView dataCalcGraphicFront = new ImageView(this);
+//			dataCalcGraphicFront.setLayoutParams(new LayoutParams(
+//					LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+//			dataCalcGraphicFront.setImageDrawable(this.getResources()
+//					.getDrawable(R.drawable.data_calc_graphic_front_small));
+//			rl = (RelativeLayout) (findViewById(R.id.image_container_test));
+//			rl.addView(dataCalcGraphicFront);
+//		}
+//		if (myTotal > 3.5)
+//		{
+//			ImageView dataCalcGraphic = (ImageView) (findViewById(R.id.data_calc_graphic));
+//
+//			ImageView onePointFive = new ImageView(this);
+//			onePointFive.setLayoutParams(new LayoutParams(
+//					LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+//			onePointFive.setImageDrawable(this.getResources().getDrawable(
+//					R.drawable.data_calc_graphic_3_point_5_small));
+//			rl.addView(onePointFive);
+//			ImageView dataCalcGraphicFront = new ImageView(this);
+//			dataCalcGraphicFront.setLayoutParams(new LayoutParams(
+//					LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+//			dataCalcGraphicFront.setImageDrawable(this.getResources()
+//					.getDrawable(R.drawable.data_calc_graphic_front_small));
+//			rl = (RelativeLayout) (findViewById(R.id.image_container_test));
+//			rl.addView(dataCalcGraphicFront);
+//		}
+//		if (myTotal > 4)
+//		{
+//			ImageView dataCalcGraphic = (ImageView) (findViewById(R.id.data_calc_graphic));
+//
+//			ImageView onePointFive = new ImageView(this);
+//			onePointFive.setLayoutParams(new LayoutParams(
+//					LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+//			onePointFive.setImageDrawable(this.getResources().getDrawable(
+//					R.drawable.data_calc_graphic_3_point_5_plus_small));
+//			rl.addView(onePointFive);
+//			ImageView dataCalcGraphicFront = new ImageView(this);
+//			dataCalcGraphicFront.setLayoutParams(new LayoutParams(
+//					LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+//			dataCalcGraphicFront.setImageDrawable(this.getResources()
+//					.getDrawable(R.drawable.data_calc_graphic_front_small));
+//			rl = (RelativeLayout) (findViewById(R.id.image_container_test));
+//			rl.addView(dataCalcGraphicFront);
+//		}
 	}
 }
