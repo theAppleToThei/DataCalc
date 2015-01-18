@@ -39,14 +39,25 @@ public class CalcActivity extends ActionBarActivity
 		i.getExtras();
 		double myTotal = i.getDoubleExtra("total", 0);
 		setContentView(R.layout.activity_calc);
-		Button planButton = (Button) findViewById(R.id.planButton);
-		planButton.setVisibility(0); //TODO: Change value when data rates are found
 		setTitle("Data Calc");
 		TextView estimate = (TextView) findViewById(R.id.dataEstimate);
 		estimate.bringToFront();
 		DecimalFormat df = new DecimalFormat("#.##");
 		estimate.setText((df.format(myTotal)));
 		RelativeLayout rl = (RelativeLayout) (findViewById(R.id.image_container));
+		renderGaugeGraphic(myTotal);
+		
+		estimate.bringToFront();
+		if (savedInstanceState == null)
+		{
+			getSupportFragmentManager().beginTransaction()
+					.add(R.id.container, new PlaceholderFragment()).commit();
+		}
+	}
+
+	private void veryRoughEstimateRender(double myTotal, TextView estimate)
+	{
+		RelativeLayout rl;
 		if (myTotal <= 0.5)
 		{
 			final ImageView dataCalcGraphic = (ImageView) (findViewById(R.id.data_calc_graphic));
@@ -235,24 +246,6 @@ public class CalcActivity extends ActionBarActivity
 			rl = (RelativeLayout) (findViewById(R.id.image_container));
 			rl.addView(dataCalcGraphicFront);
 		}
-		
-		planButton.setOnClickListener(new View.OnClickListener()
-		{
-
-			@Override
-			public void onClick(View v)
-			{
-				//TODO: Add carrier stuff
-			}
-		});
-
-
-		estimate.bringToFront();
-		if (savedInstanceState == null)
-		{
-			getSupportFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
-		}
 	}
 	
 	public Carrier getATTRate(double estimate) {
@@ -291,6 +284,104 @@ public class CalcActivity extends ActionBarActivity
 	// overridePendingTransition(R.anim.anim_in_up, R.anim.anim_out_down);
 	// }
 
+	public void renderGaugeGraphic(double myTotal)
+	{
+		TextView estimate = (TextView) findViewById(R.id.dataEstimate);
+		estimate.bringToFront();
+		DecimalFormat df = new DecimalFormat("#.##");
+		estimate.setText((df.format(myTotal)));
+		RelativeLayout rl = (RelativeLayout) (findViewById(R.id.image_container));
+//		if (myTotal <= 0.5)
+		{
+			final ImageView dataCalcGraphic = (ImageView) (findViewById(R.id.data_calc_graphic));
+
+//			ImageView point5 = new ImageView(this);
+//			point5.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
+//					LayoutParams.MATCH_PARENT));
+			// TODO Draw transparent arch over arch5
+			// float drawOver = (float) (1 - myTotal / 0.5) * 45;
+			float drawOver = 39;
+			// TODO Get canvas object
+//			Canvas c = new Canvas(five);
+			// TODO Draw arch5 onto canvas
+			// TODO Draw arch of transparent pixels onto canvas
+
+//			int radius = five.getWidth() / 2;
+
+			dataCalcGraphic.getViewTreeObserver().addOnGlobalLayoutListener(
+					new ViewTreeObserver.OnGlobalLayoutListener()
+					{
+
+						@Override
+						public void onGlobalLayout()
+						{
+							// Ensure you call it only once :
+							dataCalcGraphic.getViewTreeObserver()
+									.removeGlobalOnLayoutListener(this);
+
+							// Here you can get the size :)
+						}
+					});
+
+//			int centerX = (int) (dataCalcGraphic.getX() + radius);
+//			int centerY = (int) (dataCalcGraphic.getY() + radius);
+//			RectF oval = new RectF(centerX - radius, centerY - radius, centerX
+//					+ radius, centerY + radius);
+			Paint paint = new Paint();
+			paint.setColor(Color.RED); // Transparent
+//			c.drawArc(oval, 45, drawOver, true, paint);
+			// TODO Get modified arch back out of canvas
+//			point5.setImageDrawable(arch5);
+//			rl.addView(point5);
+			estimate.bringToFront();
+
+			TestCanvasCalcView tccv = new TestCanvasCalcView(this);
+			tccv.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
+					LayoutParams.MATCH_PARENT));
+			rl.addView(tccv);
+
+			if (myTotal <= 1)
+			{
+				tccv.setGreenAngle((int) (myTotal * 90) - 1);
+				tccv.setYellowAngle((int) (0));
+				tccv.setRedAngle((int) (0));
+			}
+			else if (myTotal <= 2) 
+			{
+				tccv.setGreenAngle((int) (90));
+				tccv.setYellowAngle((int) ((myTotal - 1) * 90)); 
+				tccv.setRedAngle((int) (0));
+			}
+			else if (myTotal > 2 && myTotal <= 4) 
+			{
+				tccv.setGreenAngle((int) (90));
+				tccv.setYellowAngle((int) (90));
+				tccv.setRedAngle((int) ((myTotal - 2) * 90));
+			}
+			else
+			{
+				tccv.setGreenAngle((int) (90));
+				tccv.setYellowAngle((int) (90));
+				tccv.setRedAngle((int) (90));
+			}
+
+			ImageView dataCalcGraphicFront = new ImageView(this);
+			dataCalcGraphicFront.setLayoutParams(new LayoutParams(
+					LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+			dataCalcGraphicFront.setImageDrawable(this.getResources()
+					.getDrawable(R.drawable.data_calc_graphic_front_small));
+			rl.addView(dataCalcGraphicFront);
+
+			ImageView dataCalcGraphicTop = new ImageView(this);
+			dataCalcGraphicTop.setLayoutParams(new LayoutParams(
+					LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+			dataCalcGraphicTop.setImageDrawable(this.getResources()
+					.getDrawable(R.drawable.data_calc_graphic_top_small));
+			rl.addView(dataCalcGraphicTop);
+
+		}
+	}
+	
 	/**
 	 * A placeholder fragment containing a simple view.
 	 */

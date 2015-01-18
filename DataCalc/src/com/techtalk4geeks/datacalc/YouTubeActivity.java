@@ -354,8 +354,6 @@ public class YouTubeActivity extends ActionBarActivity
 //		progressBar.setVisibility(0);
 		setContentView(R.layout.activity_calc);
 		
-		Button planButton = (Button) findViewById(R.id.planButton);
-		planButton.setVisibility(0);
 		overridePendingTransition(R.anim.anim_in_up, R.anim.anim_out_down);
 
 		ImageView dataCalcGraphic = (ImageView) (findViewById(R.id.data_calc_graphic));
