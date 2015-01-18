@@ -51,22 +51,22 @@ public class CalcActivity extends ActionBarActivity
 		{
 			final ImageView dataCalcGraphic = (ImageView) (findViewById(R.id.data_calc_graphic));
 
-			ImageView point5 = new ImageView(this);
-			point5.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
-					LayoutParams.MATCH_PARENT));
-			Drawable arch5 = this.getResources().getDrawable(
-					R.drawable.data_calc_graphic_point_5_small);
+//			ImageView point5 = new ImageView(this);
+//			point5.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
+//					LayoutParams.MATCH_PARENT));
+//			Drawable arch5 = this.getResources().getDrawable(
+//					R.drawable.data_calc_graphic_point_5_small);
 			// TODO Draw transparent arch over arch5
 //			float drawOver = (float) (1 - myTotal / 0.5) * 45;
 			float drawOver = 39;
 			// TODO Get canvas object
-			Bitmap five = Bitmap.createBitmap(arch5.getMinimumWidth(),
-					arch5.getMinimumHeight(), Bitmap.Config.ALPHA_8);
-			Canvas c = new Canvas(five);
+//			Bitmap five = Bitmap.createBitmap(arch5.getMinimumWidth(),
+//					arch5.getMinimumHeight(), Bitmap.Config.ALPHA_8);
+//			Canvas c = new Canvas(five);
 			// TODO Draw arch5 onto canvas
 			// TODO Draw arch of transparent pixels onto canvas
 			
-			int radius = five.getWidth() / 2;
+//			int radius = five.getWidth() / 2;
 			
 			dataCalcGraphic.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
 
@@ -79,16 +79,16 @@ public class CalcActivity extends ActionBarActivity
 		        }
 		    });
 			
-			int centerX = (int) (dataCalcGraphic.getX() + radius);
-			int centerY = (int) (dataCalcGraphic.getY() + radius);
-			RectF oval = new RectF(centerX - radius, centerY - radius, centerX
-					+ radius, centerY + radius);
+//			int centerX = (int) (dataCalcGraphic.getX() + radius);
+//			int centerY = (int) (dataCalcGraphic.getY() + radius);
+//			RectF oval = new RectF(centerX - radius, centerY - radius, centerX
+//					+ radius, centerY + radius);
 			Paint paint = new Paint();
 			paint.setColor(Color.RED); // Transparent
-			c.drawArc(oval, 45, drawOver, true, paint);
+//			c.drawArc(oval, 45, drawOver, true, paint);
 			// TODO Get modified arch back out of canvas
-			point5.setImageDrawable(arch5);
-			rl.addView(point5);
+//			point5.setImageDrawable(arch5);
+//			rl.addView(point5);
 			estimate.bringToFront();
 
 			ImageView dataCalcGraphicFront = new ImageView(this);
