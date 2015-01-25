@@ -169,7 +169,7 @@ public class TestCalcActivity extends ActionBarActivity
 			{
 				tccv.setGreenAngle((int) (90));
 				tccv.setYellowAngle((int) (90));
-				tccv.setRedAngle((int) (90));
+				tccv.setRedAngle((int) (180));
 			}
 
 			ImageView dataCalcGraphicFront = new ImageView(this);
