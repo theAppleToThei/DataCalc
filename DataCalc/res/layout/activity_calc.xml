@@ -14,7 +14,7 @@
 
         <ImageView
             android:id="@+id/data_calc_graphic"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@drawable/data_calc_graphic_back_small" />
 

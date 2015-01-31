@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import android.graphics.Point;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpClient;
@@ -46,6 +48,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Point;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -53,6 +58,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.IBinder;
 import android.util.Log;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -60,6 +66,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -71,28 +78,30 @@ import android.os.Build;
 
 public class YouTubeActivity extends ActionBarActivity
 {
+	public static YouTubeActivity youtubeActivity;
 	EditText mURL;
 	String infourl = "";
 	static final String API_KEY = "AIzaSyAdEJJkaHnPcgTBogJMIHQdoPd6V94Qaao";
 	Boolean isYouTubeAuto = false;
+	
 
-	IInAppBillingService mService;
+//	IInAppBillingService mService;
 	public ProgressBar progressBar;
-
-	ServiceConnection mServiceConn = new ServiceConnection()
-	{
-		@Override
-		public void onServiceDisconnected(ComponentName name)
-		{
-			mService = null;
-		}
-
-		@Override
-		public void onServiceConnected(ComponentName name, IBinder service)
-		{
-			mService = IInAppBillingService.Stub.asInterface(service);
-		}
-	};
+//
+//	ServiceConnection mServiceConn = new ServiceConnection()
+//	{
+//		@Override
+//		public void onServiceDisconnected(ComponentName name)
+//		{
+//			mService = null;
+//		}
+//
+//		@Override
+//		public void onServiceConnected(ComponentName name, IBinder service)
+//		{
+//			mService = IInAppBillingService.Stub.asInterface(service);
+//		}
+//	};
 
 	@SuppressLint("NewApi")
 	@Override
@@ -100,16 +109,17 @@ public class YouTubeActivity extends ActionBarActivity
 	{
 		isYouTubeAuto = false;
 		super.onCreate(savedInstanceState);
-		
+
+		youtubeActivity = this;
 		setTitle("YouTube Calculator");
 		getActionBar().setIcon(R.drawable.youtube_calc_image);
 		setContentView(R.layout.activity_you_tube);
-		
-//		progressBar = (ProgressBar) findViewById(R.id.progressBar);
-//		mURL = (EditText) findViewById(R.id.youtubeURL);
-//		progressBar.setVisibility(0);
 
-//		querySkus.putStringArrayList(“youtubeUpgrade”, skuList);
+		// progressBar = (ProgressBar) findViewById(R.id.progressBar);
+		// mURL = (EditText) findViewById(R.id.youtubeURL);
+		// progressBar.setVisibility(0);
+
+		// querySkus.putStringArrayList(“youtubeUpgrade”, skuList);
 
 		// ClipboardManager clipboard = (ClipboardManager)
 		// getSystemService(Context.CLIPBOARD_SERVICE);
@@ -163,19 +173,18 @@ public class YouTubeActivity extends ActionBarActivity
 				}
 			}
 		}
-		
-		
+
 	}
 
-	@Override
-	public void onDestroy()
-	{
-		super.onDestroy();
-		if (mService != null)
-		{
-			unbindService(mServiceConn);
-		}
-	}
+//	@Override
+//	public void onDestroy()
+//	{
+//		super.onDestroy();
+//		if (mService != null)
+//		{
+//			unbindService(mServiceConn);
+//		}
+//	}
 
 	void handleSendText(Intent intent) throws Exception
 	{
@@ -218,9 +227,9 @@ public class YouTubeActivity extends ActionBarActivity
 				Log.d("DC", youtubeURLContentDetails);
 				Log.d("DC", "YouTube ID: " + sharedText.substring(substring));
 				new YouTubeAPIOperations().execute(youtubeURLContentDetails);
-//				progressBar.setVisibility(100);
+				// progressBar.setVisibility(100);
 				Log.d("DC", "after execute");
-				
+
 				// long length = getVidTime(youtubeURL);
 				// calculate(length);
 			}
@@ -280,7 +289,7 @@ public class YouTubeActivity extends ActionBarActivity
 			return "Error";
 		}
 	}
-	
+
 	public String getYouTubeSnippet(String youTubeURL) throws Exception
 	{
 		URL url = new URL(youTubeURL);
@@ -351,9 +360,9 @@ public class YouTubeActivity extends ActionBarActivity
 
 	public void showCalculation(double estimate)
 	{
-//		progressBar.setVisibility(0);
+		// progressBar.setVisibility(0);
 		setContentView(R.layout.activity_calc);
-		
+
 		overridePendingTransition(R.anim.anim_in_up, R.anim.anim_out_down);
 
 		ImageView dataCalcGraphic = (ImageView) (findViewById(R.id.data_calc_graphic));
@@ -452,7 +461,7 @@ public class YouTubeActivity extends ActionBarActivity
 		rl.addView(titleText);
 		DecimalFormat df = new DecimalFormat("#.###");
 		dataEstimateText.setText(String.valueOf(df.format(estimate)));
-//		titleText.setText(title);
+		// titleText.setText(title);
 	}
 
 	public long getVidTime(String url)
@@ -483,30 +492,30 @@ public class YouTubeActivity extends ActionBarActivity
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
 		int id = item.getItemId();
-//		if (id == R.id.calc)
-//		{
-//			if (mURL != null)
-//			{
-//				String url = mURL.getText().toString();
-//				try
-//				{
-//					getYouTubeContentDetails(url);
-//				} catch (Exception e)
-//				{
-//					e.printStackTrace();
-//				}
-//				return true;
-//			} else
-//			{
-//				setContentView(R.layout.activity_calc);
-//				overridePendingTransition(R.anim.anim_in_up, R.anim.anim_out_up);
-//			}
-//		}
-//		if (id == R.id.help_button)
-//		{
-//			createYouTubeHelpDialog();
-//			return true;
-//		}
+		// if (id == R.id.calc)
+		// {
+		// if (mURL != null)
+		// {
+		// String url = mURL.getText().toString();
+		// try
+		// {
+		// getYouTubeContentDetails(url);
+		// } catch (Exception e)
+		// {
+		// e.printStackTrace();
+		// }
+		// return true;
+		// } else
+		// {
+		// setContentView(R.layout.activity_calc);
+		// overridePendingTransition(R.anim.anim_in_up, R.anim.anim_out_up);
+		// }
+		// }
+		// if (id == R.id.help_button)
+		// {
+		// createYouTubeHelpDialog();
+		// return true;
+		// }
 		return super.onOptionsItemSelected(item);
 	}
 
@@ -609,6 +618,119 @@ public class YouTubeActivity extends ActionBarActivity
 
 	}
 
+	public void renderGaugeGraphic(double myTotal)
+	{
+		setContentView(R.layout.activity_calc);
+		overridePendingTransition(R.anim.anim_in_up, R.anim.anim_out_down);
+		TextView estimate = (TextView) findViewById(R.id.dataEstimate);
+		estimate.bringToFront();
+		DecimalFormat df = new DecimalFormat("#.##");
+		estimate.setText((df.format(myTotal)));
+		RelativeLayout rl = (RelativeLayout) (findViewById(R.id.image_container));
+		// if (myTotal <= 0.5)
+		{
+			final ImageView dataCalcGraphic = (ImageView) (findViewById(R.id.data_calc_graphic));
+
+			// ImageView point5 = new ImageView(this);
+			// point5.setLayoutParams(new
+			// LayoutParams(LayoutParams.MATCH_PARENT,
+			// LayoutParams.MATCH_PARENT));
+			// TODO Draw transparent arch over arch5
+			// float drawOver = (float) (1 - myTotal / 0.5) * 45;
+			float drawOver = 39;
+			// TODO Get canvas object
+			// Canvas c = new Canvas(five);
+			// TODO Draw arch5 onto canvas
+			// TODO Draw arch of transparent pixels onto canvas
+
+			// int radius = five.getWidth() / 2;
+
+			dataCalcGraphic.getViewTreeObserver().addOnGlobalLayoutListener(
+					new ViewTreeObserver.OnGlobalLayoutListener()
+					{
+
+						@Override
+						public void onGlobalLayout()
+						{
+							// Ensure you call it only once :
+							dataCalcGraphic.getViewTreeObserver()
+									.removeGlobalOnLayoutListener(this);
+
+							// Here you can get the size :)
+						}
+					});
+
+			Point size = getScreenSize();
+			int width = size.x;
+			int height = size.y;
+
+			// int centerX = (int) (dataCalcGraphic.getX() + radius);
+			// int centerY = (int) (dataCalcGraphic.getY() + radius);
+			// RectF oval = new RectF(centerX - radius, centerY - radius,
+			// centerX
+			// + radius, centerY + radius);
+			Paint paint = new Paint();
+			paint.setColor(Color.RED); // Transparent
+			// c.drawArc(oval, 45, drawOver, true, paint);
+			// TODO Get modified arch back out of canvas
+			// point5.setImageDrawable(arch5);
+			// rl.addView(point5);
+			
+
+			YouTubeCanvasCalcView yccv = new YouTubeCanvasCalcView(this);
+			yccv.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
+					LayoutParams.MATCH_PARENT));
+			rl.addView(yccv);
+
+			if (myTotal <= 1)
+			{
+				yccv.setGreenAngle((int) (myTotal * 90) - 1);
+				yccv.setYellowAngle((int) (0));
+				yccv.setRedAngle((int) (0));
+			} else if (myTotal <= 2)
+			{
+				yccv.setGreenAngle((int) (90));
+				yccv.setYellowAngle((int) ((myTotal - 1) * 90));
+				yccv.setRedAngle((int) (0));
+			} else if (myTotal > 2 && myTotal <= 4)
+			{
+				yccv.setGreenAngle((int) (90));
+				yccv.setYellowAngle((int) (90));
+				yccv.setRedAngle((int) ((myTotal - 2) * 90));
+			} else
+			{
+				yccv.setGreenAngle((int) (90));
+				yccv.setYellowAngle((int) (90));
+				yccv.setRedAngle((int) (180));
+			}
+
+			ImageView dataCalcGraphicFront = new ImageView(this);
+			dataCalcGraphicFront.setLayoutParams(new LayoutParams(
+					LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+			dataCalcGraphicFront.setImageDrawable(this.getResources()
+					.getDrawable(R.drawable.data_calc_graphic_front_small));
+			rl.addView(dataCalcGraphicFront);
+
+			ImageView dataCalcGraphicTop = new ImageView(this);
+			dataCalcGraphicTop.setLayoutParams(new LayoutParams(
+					LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+			dataCalcGraphicTop.setImageDrawable(this.getResources()
+					.getDrawable(R.drawable.data_calc_graphic_top_small));
+			rl.addView(dataCalcGraphicTop);
+			estimate.bringToFront();
+			Log.d("DC", "graphic width: " + dataCalcGraphicFront.getWidth());
+		}
+
+	}
+
+	public Point getScreenSize()
+	{
+		Display d = getWindowManager().getDefaultDisplay();
+		Point size = new Point();
+		d.getSize(size);
+		return size;
+	}
+
 	private class YouTubeAPIOperations extends
 			AsyncTask<String, String, String>
 	{
@@ -627,7 +749,7 @@ public class YouTubeActivity extends ActionBarActivity
 			try
 			{
 				String result = getYouTubeContentDetails(params[0]);
-//				final String title = getYouTubeSnippet(params[0]);
+				// final String title = getYouTubeSnippet(params[0]);
 				PeriodFormatter formatter = ISOPeriodFormat.standard();
 				Period p = formatter.parsePeriod(result);
 				Log.i("DC",
@@ -645,7 +767,8 @@ public class YouTubeActivity extends ActionBarActivity
 					public void run()
 					{
 						Log.i("DC", "Made it to showCalculation()");
-						showCalculation(total);
+						// showCalculation(total);
+						renderGaugeGraphic(total);
 					}
 				});
 

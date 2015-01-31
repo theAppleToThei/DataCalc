@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.annotation.SuppressLint;
 import android.app.ActionBar.LayoutParams;
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -35,11 +36,15 @@ import android.os.Build;
 
 public class CalcActivity extends ActionBarActivity
 {
+
+	public static CalcActivity calcActivity;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		Intent i = getIntent();
+		calcActivity = this;
 		i.getExtras();
 		double myTotal = i.getDoubleExtra("total", 0);
 		setContentView(R.layout.activity_calc);
@@ -355,8 +360,6 @@ public class CalcActivity extends ActionBarActivity
 			TestCanvasCalcView tccv = new TestCanvasCalcView(this);
 			tccv.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
 					LayoutParams.MATCH_PARENT));
-			tccv.setX((int) (width / 20.571428571)); // 35
-			tccv.setY((int) (height / 36.571428571));
 			rl.addView(tccv);
 
 			if (myTotal <= 1)
@@ -398,7 +401,7 @@ public class CalcActivity extends ActionBarActivity
 		}
 	}
 
-	private Point getScreenSize()
+	public Point getScreenSize()
 	{
 		Display d = getWindowManager().getDefaultDisplay();
 		Point size = new Point();

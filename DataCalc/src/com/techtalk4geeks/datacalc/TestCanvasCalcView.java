@@ -21,7 +21,6 @@ public class TestCanvasCalcView extends View
 	int greenAngle = 90;
 	int yellowAngle = 90;
 	int redAngle = 180;
-	
 
 	public TestCanvasCalcView(Context context)
 	{
@@ -36,34 +35,43 @@ public class TestCanvasCalcView extends View
 		// paint.setColor(Color.TRANSPARENT);
 		// paint.setStyle(Style.FILL);
 		// canvas.drawPaint(paint);
-		int screenHeight;
-		
-		int x = 0;
-		int y = 150;
+
+		int screenHeight = CalcActivity.calcActivity.getScreenSize().y;
+
 		int getWidth = canvas.getWidth();
-		int proportionalWidth = (int) (getWidth / 1.094224924);
-		int proportionalHeight = (int) (y + 700);
-		
-		RectF oval = new RectF(x, y, proportionalWidth, proportionalHeight); // (3, 163, 658, 814) 
+		int x = (int) (getWidth * 0.01);
+
+		int y = (int) (((canvas.getHeight() - getWidth) / 2.0) + x);
+		int proportionalWidth = getWidth - (2 * x);
+		int proportionalHeight = proportionalWidth;
+
+		RectF oval = new RectF(x, y, x + proportionalWidth, y
+				+ proportionalHeight); // (3,
+		// 163,
+		// 658,
+		// 814)
 		paint.setColor(Color.GREEN);
 		canvas.drawArc(oval, -90, greenAngle, true, paint);
 		paint.setColor(Color.YELLOW);
 		canvas.drawArc(oval, 0, yellowAngle, true, paint);
-		paint.setColor(Color.RED); 
+		paint.setColor(Color.RED);
 		canvas.drawArc(oval, 90, redAngle, true, paint);
 
 		canvas.save();
 	}
 	
-	public void setGreenAngle(int setTo) {
+	public void setGreenAngle(int setTo)
+	{
 		greenAngle = setTo;
 	}
-	
-	public void setYellowAngle(int setTo) {
+
+	public void setYellowAngle(int setTo)
+	{
 		yellowAngle = setTo;
 	}
-	
-	public void setRedAngle(int setTo) {
+
+	public void setRedAngle(int setTo)
+	{
 		redAngle = setTo;
 	}
 
